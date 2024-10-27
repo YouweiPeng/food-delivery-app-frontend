@@ -4,7 +4,20 @@
   width: 100%;
   height: 100%;
 }
-
+p{
+  color: black;
+}
+input{
+  background-color: white;
+  color: black;
+}
+h1, h2, h3, h4, h5, h6{
+  color: black;
+}
+select{
+  background-color: white;
+  color: black;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
