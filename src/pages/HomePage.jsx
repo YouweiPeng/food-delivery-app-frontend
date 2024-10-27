@@ -94,7 +94,12 @@ const HomePage = () => {
             {!isLoggin ? (
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fixed bottom-4 right-4 z-50"
-                    onClick={() => dispatch(setModalLogin())}
+                    onClick={() => 
+                        {
+                            if(isLoggin){
+                                handleMyOrders();
+                            }
+                            dispatch(setModalLogin())}}
                 >
                     登录/注册
                 </button>
@@ -145,9 +150,9 @@ const HomePage = () => {
                 </>
             )}
 
-            {isLoginModal && <LoginModal />}
-            {isMyinfoModal && <MyInfoModal />}
-            {isMyOrdersModal && <MyOrdersModal />}
+            {isLoginModal && !isLoggin && <LoginModal />}
+            {isMyinfoModal && isLoggin &&<MyInfoModal />}
+            {isMyOrdersModal && isLoggin &&<MyOrdersModal />}
         </div>
     );
 };

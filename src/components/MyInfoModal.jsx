@@ -277,9 +277,9 @@ const MyInfoModal = () => {
                         >
                             修改信息
                         </button>
-                        <button
+                        {/* <button
                         className="bg-red-400 text-white"
-                        >忘记密码</button>
+                        >忘记密码</button> */}
                         </div>
                     )}
                 </div>
