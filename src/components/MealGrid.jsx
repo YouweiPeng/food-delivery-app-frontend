@@ -31,7 +31,7 @@ const MealGrid = () => {
         <label htmlFor="daySelector" className="mr-2">选择日期:</label>
         <select id="daySelector" 
           onChange={handleDayChange} 
-          className="p-2 border rounded"
+          className="p-2 border rounded dark:text-white dark:black"
           defaultValue={getWeekDates().formattedDate}
         >
           <optgroup label="本周">

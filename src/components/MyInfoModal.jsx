@@ -218,7 +218,7 @@ const MyInfoModal = () => {
                     {loading && <p className="text-sm text-gray-500">Loading suggestions...</p>}
 
                     {suggestions.length > 0 && (
-                        <ul ref={suggestionBoxRef} className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+                        <ul ref={suggestionBoxRef} className="text-gray-500 absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg">
                             {suggestions.map((suggestion) => (
                                 <li
                                     key={suggestion.id}
@@ -265,6 +265,7 @@ const MyInfoModal = () => {
                             保存
                         </button>
                         <button
+                            className="bg-red-400 text-white py-2 px-4 rounded-md hover:bg-red-500 transition-colors duration-300"
                         onClick={handleCancel}
                         >取消</button>
                         </div>

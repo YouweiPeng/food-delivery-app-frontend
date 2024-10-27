@@ -186,7 +186,9 @@ const CheckoutPage = () => {
         <input type="hidden" name="uuid" value={userData.uuid} />
         <input type="hidden" name="content" value={formattedTodayMeals} />
         <input type="hidden" name="extraFee" value={fee} />
-        <button type="submit">订购餐食</button>
+        <button 
+        className='bg-green-500 text-white p-2 rounded-md'
+        type="submit">订购餐食</button>
       </form>
       {isAddressConfirmModalOpen && <AddressConfirmModal onConfirm={submitForm}/>}
     </section>

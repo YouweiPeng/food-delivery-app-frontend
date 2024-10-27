@@ -5,7 +5,8 @@ const MealCard = ({ meal, onClick }) => {
         <img
           src={testPic}
           alt={meal.name}
-          className="w-full h-48 object-cover"
+          draggable="false"
+          className="w-full h-48 object-cover pointer-events-none"
         />
         <div className="p-4">
           <h2 className="text-xl font-semibold">{meal.name}</h2>
