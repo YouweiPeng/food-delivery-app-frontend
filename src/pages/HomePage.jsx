@@ -116,6 +116,7 @@ const HomePage = () => {
                         <button
                             className="text-black text-xl mb-6 block"
                             onClick={() => toggleSidebar()}
+                            id = "sidebar-close-button"
                         >
                             ✕
                         </button>

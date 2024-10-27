@@ -182,7 +182,7 @@ const MyInfoModal = () => {
                                 name="username"
                                 value={editedUser.username}
                                 onChange={handleInputChange}
-                                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
                             />
                         ) : (
                             <p className="text-gray-900">{user.username || "未设置"}</p>
@@ -199,7 +199,7 @@ const MyInfoModal = () => {
                                 name="email"
                                 value={editedUser.email}
                                 onChange={handleInputChange}
-                                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
                             />
                         ) : (
                             <p className="text-gray-900">{user.email || "未设置"}</p>
@@ -216,7 +216,7 @@ const MyInfoModal = () => {
                         name="address"
                         value={tempoAddress}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
                         placeholder="Enter address"
                         ref={addressInputRef}
                     />
@@ -252,7 +252,7 @@ const MyInfoModal = () => {
                                 name="phone_number"
                                 value={editedUser.phone_number}
                                 onChange={handleInputChange}
-                                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
                             />
                         ) : (
                             <p className="text-gray-900">{user.phone_number || "未设置"}</p>

@@ -141,6 +141,7 @@ const CheckoutPage = () => {
           min={1}
           max={30}
           required
+          className='text-gray-900'
         />
 
         <label htmlFor="address">地址</label>
@@ -149,6 +150,7 @@ const CheckoutPage = () => {
           id="address" 
           required 
           name="address"
+          className='text-gray-900'
           defaultValue={userData.address}
         />
 
@@ -159,6 +161,7 @@ const CheckoutPage = () => {
           id="number" 
           required 
           name="phone_number"
+          className='text-gray-900'
           defaultValue={userData.phone_number}
         />
 
@@ -168,6 +171,7 @@ const CheckoutPage = () => {
           id="email" 
           required
           name="email"
+          className='text-gray-900'
           defaultValue={userData.email}
         />
 
