@@ -18,40 +18,34 @@ const MyInfoModal = () => {
     const [sessionToken] = useState(uuidv4());
     const addressInputRef = useRef(null); // Ref for the address input
     const suggestionBoxRef = useRef(null); // Ref for the suggestion box
-    function getCSRFToken() {
-        const name = 'csrftoken';
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.startsWith(name + '=')) {
-                return cookie.substring(name.length + 1);
-            }
-        }
-        return '';
-    }
-
       const handleInputChange = (e) => {
+        if(e.target.name === "address"){
         const { name, value } = e.target;
         setTempoAddress(value);
-
         if (value.length >= 3) { // Trigger suggestions only after 3 characters
             getSuggestions(value);
         } else {
             setSuggestions([]);
         }
+    }
     };
-    const validateInput = () => {
-        const { username, email, address, phone_number } = editedUser;
+    const validateInput = (data) => {
+        const { username, email, address, phone_number } = data;
         if (username === "" || email === "" || address === "" || phone_number === "") {
             return [false, 0];
         } else {
-            return [true, editedUser];
+            return [true, data];
         }
     };
 
     const handleSave = async() => {
-        console.log("Saved user info:", editedUser);
-        const validResult = validateInput();
+        const data = {
+            username: document.getElementById("username").value,
+            email: document.getElementById("email").value,
+            address: document.getElementById("address").value,
+            phone_number: document.getElementById("phone_number").value,
+        }
+        const validResult = validateInput(data);
         if (validResult[0]) {
             const userData = validResult[1];
             const url = `${backend_origin}/user/edit/`;
@@ -59,9 +53,8 @@ const MyInfoModal = () => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRFToken": getCSRFToken() 
                 },
-                body: JSON.stringify(userData),
+                body: JSON.stringify(data),
                 credentials: 'include',
             }).then((data) => {
                     if (data.error) {
@@ -112,12 +105,13 @@ const MyInfoModal = () => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
+
           if (
             addressInputRef.current && !addressInputRef.current.contains(event.target) &&
             suggestionBoxRef.current && !suggestionBoxRef.current.contains(event.target)
           ) {
             setSuggestions([]);
-            setLoading(false); // Stop loading when clicking outside the address field or suggestions box
+            setLoading(false);
           }
         };
     
@@ -180,8 +174,8 @@ const MyInfoModal = () => {
                             <input
                                 type="text"
                                 name="username"
-                                value={editedUser.username}
-                                onChange={handleInputChange}
+                                defaultValue={user.username}
+                                id = "username"
                                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
                             />
                         ) : (
@@ -197,8 +191,8 @@ const MyInfoModal = () => {
                             <input
                                 type="email"
                                 name="email"
-                                value={editedUser.email}
-                                onChange={handleInputChange}
+                                id = "email"
+                                defaultValue={user.email}
                                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
                             />
                         ) : (
@@ -214,6 +208,7 @@ const MyInfoModal = () => {
                     <input
                         type="text"
                         name="address"
+                        id = "address"
                         value={tempoAddress}
                         onChange={handleInputChange}
                         className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
@@ -250,8 +245,8 @@ const MyInfoModal = () => {
                             <input
                                 type="text"
                                 name="phone_number"
-                                value={editedUser.phone_number}
-                                onChange={handleInputChange}
+                                id = "phone_number"
+                                defaultValue={user.phone_number}
                                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
                             />
                         ) : (
