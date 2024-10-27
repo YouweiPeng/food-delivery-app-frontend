@@ -176,7 +176,7 @@ const CheckoutPage = () => {
         />
 
         <label htmlFor="note">备注(选填)</label>
-        <textarea name="comment" id="note" rows={3}></textarea>
+        <textarea name="comment" id="note" rows={3} className='text-gray-900'></textarea>
 
         <h3 className='font-black text-xl'>
           {isNaN(totalPrice) || quantity > 30 ? "数量有误" : `餐价:$${totalPrice}`}
