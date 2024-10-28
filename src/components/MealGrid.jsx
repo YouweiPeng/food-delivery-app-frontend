@@ -19,7 +19,8 @@ const MealGrid = () => {
   const handleDayChange = (e) => {
     setSelectedDay(e.target.value);
   };
-
+  console.log("date")
+  console.log(formattedDate)
   const selectedMeals = meals[selectedDay] || [];
 
   return (

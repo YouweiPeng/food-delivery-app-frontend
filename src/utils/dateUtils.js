@@ -5,8 +5,8 @@ export const getWeekDates = () => {
   if (today.getHours() >= 10) {
     today.setTime(today.getTime() + (24 * 60 * 60 * 1000));
   }
-  // today.setTime(today.getTime() + (104 * 24 * 60 * 60 * 1000))
-  const formattedDate = `${today.getFullYear()}-${(today.getMonth() + 1) >= 10? today.getMonth() + 1:'0' + (today.getMonth() + 1)}-${ today.getDate() > 10?today.getDate():'0'+ today.getDate()}`;
+  // today.setTime(today.getTime() + (78 * 24 * 60 * 60 * 1000))
+  const formattedDate = `${today.getFullYear()}-${(today.getMonth() + 1) >= 10? today.getMonth() + 1:'0' + (today.getMonth() + 1)}-${ today.getDate() >= 10? today.getDate():'0'+ today.getDate()}`;
   const thisMonday = startOfWeek(today, { weekStartsOn: 1 });
   
   const thisWeek = Array.from({ length: 7 }, (_, i) => addDays(thisMonday, i));
@@ -20,4 +20,4 @@ export const getWeekDates = () => {
   };
 };
 
-export const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+export const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
