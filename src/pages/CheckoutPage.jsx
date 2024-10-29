@@ -9,7 +9,9 @@ import {setModalAddressConfirm} from '../store/interfaceSlice'
 import {setRoute, setDistance, setCoordinates} from '../store/interfaceSlice'
 import { setExtraFee } from '../store/interfaceSlice';
 import { set } from 'date-fns';
+import { Input } from 'antd';
 const CheckoutPage = () => {
+  const { TextArea } = Input;
   const formRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
   const hour = new Date().getHours();
@@ -128,11 +130,13 @@ const CheckoutPage = () => {
         action={`${backend_origin}/create-checkout-session/`}
         method="POST"
         onSubmit={handleSubmitOrder}
-        className='flex flex-col w-3/6 max-w-56'
+        className='flex flex-col w-5/6 max-w-56 gap-y-4'
         ref={formRef}
       >
+        <div>
         <label htmlFor="quantity">餐食数量</label>
-        <input
+        <Input
+          size = 'large'
           id="quantity"
           name="quantity"
           type="number"
@@ -143,41 +147,60 @@ const CheckoutPage = () => {
           required
           className='text-gray-900'
         />
+        </div>
+        
+        <div>
 
+
+        
         <label htmlFor="address">地址</label>
-        <input 
+        <Input
+          size = 'large'
           type="text" 
           id="address" 
           required 
           name="address"
-          className='text-gray-900'
+          className='text-gray-900 p-3'
           defaultValue={userData.address}
+          placeholder='请输入地址 (Please enter your address)'
         />
+        </div>
+        <div>
 
         <label htmlFor="number">电话号码</label>
-        <input 
+        <Input
+          size = 'large'
           type="tel" 
           placeholder="(780)-123-4567" 
           id="number" 
           required 
           name="phone_number"
-          className='text-gray-900'
+          className='text-gray-900 p-3'
           defaultValue={userData.phone_number}
         />
+        </div>
 
+        <div>
         <label htmlFor="email">邮箱</label>
-        <input 
+        <Input
+          size = 'large' 
           type="email" 
           id="email" 
           required
           name="email"
-          className='text-gray-900'
+          className='text-gray-900 p-3'
           defaultValue={userData.email}
+          placeholder='请输入邮箱 (Please enter your email)'
         />
+        </div>
+
+        <div>
 
         <label htmlFor="note">备注(选填)</label>
-        <textarea name="comment" id="note" rows={3} className='text-gray-900'></textarea>
-
+        <TextArea name="comment" id="note" 
+        placeholder='请在此处输入备注, 如过敏信息，特殊要求'
+        autoSize={{ minRows: 3, maxRows: 5 }} className='text-gray-900 p-3'/>
+        </div>
         <h3 className='font-black text-xl'>
           {isNaN(totalPrice) || quantity > 30 ? "数量有误" : `餐价:$${totalPrice}`}
         </h3>
