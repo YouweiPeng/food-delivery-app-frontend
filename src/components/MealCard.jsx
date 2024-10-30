@@ -5,7 +5,7 @@ const MealCard = ({ meal, onClick }) => {
       <div onClick={onClick} className="bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 cursor-pointer">
         <img
         // {`data:image/png;base64,${selectedImage}`}
-          src={`data:image/png;base64, ${meal.picture_base64}`}
+          src={`data:image/png;base64, ${meal.picture}`}
           alt={meal.name}
           draggable="false"
           className="w-full h-48 object-cover pointer-events-none"
