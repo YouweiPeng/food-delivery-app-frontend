@@ -62,9 +62,12 @@ const MyInfoModal = () => {
                         alert(data.error);
                         return;
                     }
-                    dispatch(setUser(userData));
-                    setEditedUser(userData);
-                    setIsEditing(false);
+                    data.json().then((userData) => {
+                        console.log(userData);
+                        dispatch(setUser(userData));
+                        setEditedUser(userData);
+                        setIsEditing(false);
+                    });
                 })
                 .catch((err) => {
                     console.log(err);

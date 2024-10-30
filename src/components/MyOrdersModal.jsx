@@ -1,14 +1,43 @@
 import React, { useState } from 'react';
-import { setModalMyOrders } from '../store/interfaceSlice';
+import { setModalMyOrders, setOrderCancelModal, setUserOrders} from '../store/interfaceSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import OrderCancelModal from './OrderCancelModal';
 
 const MyOrdersModal = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.interfaceSlice.user);
   const user_orders = useSelector((state) => state.interfaceSlice.user_orders);
-  
+  const IsOrderCancelModal = useSelector((state) => state.interfaceSlice.orderCancelModal);
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [cancelOrderId, setCancelOrderId] = useState(null); // Track the specific order to cancel
+  const backend_origin = import.meta.env.VITE_BACKEND_ORIGIN;
+  const handleCancelOrder = (order) => {
+    console.log('Order Cancel');
+    console.log(order);
+    const cancelOrder = async () => {
+      const url = `${backend_origin}/order/cancel_order/${order.order_code}/${user.uuid}`
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        const updatedOrders = user_orders.map((o) =>
+          o.id === order.id ? { ...o, status: 'refunded' } : o
+        );
+        dispatch(setUserOrders(updatedOrders));
+      }
+    }
+    cancelOrder();
+    setCancelOrderId(null);
+    dispatch(setOrderCancelModal(false));
+  };
 
   const toggleOrderDetails = (orderId) => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
@@ -53,8 +82,25 @@ const MyOrdersModal = () => {
                         order.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
                       }`}
                     >
-                      {order.status === 'pending' ? "配送中" : "已送达"}
+                      {order.status === 'pending' ? "配送中" : order.status === 'delivered' ? "已送达" : "已取消"}
                     </span>
+                    {order.status === 'pending' && (
+                      <button
+                        onClick={() => {
+                          setCancelOrderId(order.id);
+                          dispatch(setOrderCancelModal(true));
+                        }}
+                        className="text-white mx-2 bg-red-500 inline-block px-2 py-1 rounded text-white mt-2"
+                      >
+                        取消订单
+                      </button>
+                    )}
+                    {IsOrderCancelModal && cancelOrderId === order.id && (
+                      <OrderCancelModal
+                        onCancel={() => dispatch(setOrderCancelModal(false))}
+                        onConfirm={() => handleCancelOrder(order)}
+                      />
+                    )}
                   </div>
                   <button
                     onClick={() => toggleOrderDetails(order.id)}
@@ -88,7 +134,6 @@ const MyOrdersModal = () => {
           )}
         </div>
 
-        {/* Modal for Enlarged Image */}
         {isImageModalOpen && (
           <div
             className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-60"

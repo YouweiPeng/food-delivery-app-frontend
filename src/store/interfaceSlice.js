@@ -16,6 +16,7 @@ const initialState = {
     isAddressConfirmModalOpen: false,
     coordinates : [],
     extraFee: 0,
+    orderCancelModal: false,
 };
 
 const interfaceSlice = createSlice({
@@ -60,6 +61,9 @@ const interfaceSlice = createSlice({
         },
         setExtraFee: (state, action) => {
             state.extraFee = action.payload
+        },
+        setOrderCancelModal:(state, action) =>{
+            state.orderCancelModal = action.payload
         }
 
     
@@ -67,5 +71,5 @@ const interfaceSlice = createSlice({
     });
 
 
-export const {setMealInfo, setModalInfo, setModalLogin, setUser, setIsLoggin,setModalMyInfo,setModalMyOrders, setUserOrders, setDistance, setRoute, setModalAddressConfirm, setCoordinates, setExtraFee} = interfaceSlice.actions;
+export const {setMealInfo, setModalInfo, setModalLogin, setUser, setIsLoggin,setModalMyInfo,setModalMyOrders, setUserOrders, setDistance, setRoute, setModalAddressConfirm, setCoordinates, setExtraFee, setOrderCancelModal} = interfaceSlice.actions;
 export default interfaceSlice.reducer;
