@@ -44,6 +44,7 @@ const MyInfoModal = () => {
             email: document.getElementById("email").value,
             address: document.getElementById("address").value,
             phone_number: document.getElementById("phone_number").value,
+            room_number: document.getElementById("room_number").value,
         }
         const validResult = validateInput(data);
         if (validResult[0]) {
