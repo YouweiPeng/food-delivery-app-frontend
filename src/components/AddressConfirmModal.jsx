@@ -97,7 +97,7 @@ const AddressConfirmModal = ({ onConfirm }) => {
                         配送距离: <span className="font-bold">{distance} km</span>
                     </p>
                     <h2 className="font-bold">{extraFeeText}</h2>
-                    <p className="font-light">注：3公里范围内免配送费，3-5公里为5元，5-10公里为8元，10公里以上为12元</p>
+                    <p className="font-light">注：3公里范围内免配送费，3-5公里为3元，5-10公里为5元，10公里以上为8元</p>
                 </div>
                 <div className="flex justify-end mt-4">
                     <button

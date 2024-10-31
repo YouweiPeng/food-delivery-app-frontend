@@ -206,6 +206,8 @@ const MyInfoModal = () => {
             <label className="block text-sm font-medium text-gray-700">
                 地址
             </label>
+            
+
             {isEditing ? (
                 <div className="relative">
                     <input
@@ -255,6 +257,23 @@ const MyInfoModal = () => {
                         ) : (
                             <p className="text-gray-900">{user.phone_number || "未设置"}</p>
                         )}
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">
+                            房间号
+                        </label>
+                        {isEditing ? (
+                            <input
+                                type="text"
+                                name="room_number"
+                                id = "room_number"
+                                defaultValue={user.room_number}
+                                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
+                            />
+                        ) : (
+                            <p className="text-gray-900">{user.room_number || "N/A"}</p>
+                        )}
+
                     </div>
                 </div>
 

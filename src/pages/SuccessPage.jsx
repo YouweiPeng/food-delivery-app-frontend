@@ -61,7 +61,10 @@ const SuccessPage = () => {
                 <p className="text-md"><strong>餐食数量:</strong> <span className="text-gray-800">{sessionData.quantity}</span></p>
             </div>
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-                <p className="text-md"><strong>总价:</strong> <span className="text-gray-800">${sessionData.price}</span></p>
+                <p className="text-md"><strong>房间号</strong> <span className="text-gray-800">{sessionData.room_number}</span></p>
+            </div>
+            <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+                <p className="text-md"><strong>餐价:</strong> <span className="text-gray-800">${sessionData.price}</span></p>
             </div>
         </div>
     ) : (

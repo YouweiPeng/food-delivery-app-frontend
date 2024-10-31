@@ -23,13 +23,14 @@ const LoginModal = () => {
     const email = document.getElementById('email').value
     const address = document.getElementById('address').value
     const phone_number = document.getElementById('phone').value
+    const room_number = document.getElementById('room_number').value || 'N/A'
 
     if (username ==='' || password ==='' || email ===''|| address ===''|| phone_number === ''){
       alert("请输入注册需要的信息")
       return [false, 0]
     }
     else{
-      const data = {username, password, email, address, phone_number}
+      const data = {username, password, email, address, phone_number, room_number}
       return [true, data]
     }
   }
@@ -55,7 +56,14 @@ const LoginModal = () => {
           return
         }
         dispatch(setIsLoggin(true))
-        dispatch(setUser({username:userData.username, email:userData.email, address: userData.address, phone_number: userData.phone_number, password:userData.password, uuid:uData.uuid}))
+        dispatch(setUser({
+          username:userData.username, 
+          email:userData.email, 
+          address: userData.address, 
+          phone_number: userData.phone_number, 
+          password:userData.password,
+          uuid:uData.uuid, 
+          room_number:userData.room_number}))
         dispatch(setModalLogin())
         })
 
@@ -95,7 +103,8 @@ const LoginModal = () => {
           email: data.email,
           address: data.address,
           phone_number: data.phone_number,
-          uuid: data.uuid
+          uuid: data.uuid,
+          room_number: data.room_number
         }));
         dispatch(setIsLoggin(true));
         dispatch(setModalLogin());
@@ -198,13 +207,13 @@ const LoginModal = () => {
                 htmlFor="username"
                 className="block text-sm font-medium text-gray-700"
               >
-                用户名
+                用户名或邮箱
               </label>
               <input
                 type="text"
                 id="username"
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
-                placeholder="输入用户名"
+                placeholder="输入用户名或者邮箱"
                 required
               />
             </div>
@@ -228,7 +237,7 @@ const LoginModal = () => {
               isRegistering && (
                 <div className="mb-4">
 
-<label
+              <label
                   htmlFor="address"
                   className="block text-sm font-medium text-gray-700"
                   required
@@ -262,6 +271,18 @@ const LoginModal = () => {
                     </ul>
                   )}
                 </div>
+                  <label htmlFor="room_number"
+                  className="block text-sm font-medium text-gray-700"
+                
+                  >
+                  房间号(选填)
+                  </label>
+                  <input type="text" 
+                  id = "room_number"
+                  className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
+                  placeholder="房间号(选填)"
+                  />
+
                   <label htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                   >电话</label>
@@ -271,6 +292,8 @@ const LoginModal = () => {
                   placeholder="电话号码"
                   required
                   />
+
+
                   <label htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                   >邮箱</label>

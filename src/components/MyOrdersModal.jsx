@@ -13,6 +13,16 @@ const MyOrdersModal = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [cancelOrderId, setCancelOrderId] = useState(null); // Track the specific order to cancel
   const backend_origin = import.meta.env.VITE_BACKEND_ORIGIN;
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+};
   const handleCancelOrder = (order) => {
     console.log('Order Cancel');
     console.log(order);
@@ -74,7 +84,7 @@ const MyOrdersModal = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-bold">订单号: {order.order_code}</p>
-                    <p className="text-gray-600">日期: {new Date(order.date).toISOString().slice(0, 10)}</p>
+                    <p className="text-gray-600">日期: {formatDate(order.date)}</p>
                     <p className="text-gray-600">价格: <strong>${order.price}</strong></p>
                     <span
                       className={`inline-block px-2 py-1 rounded text-white mt-2 ${

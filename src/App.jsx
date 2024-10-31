@@ -35,6 +35,7 @@ function App() {
             address: data.address,
             phone_number: data.phone_number,
             uuid: data.uuid,
+            room_number: data.room_number,
           }));
           dispatch(setIsLoggin(true));
           console.log("Auto login successful.");

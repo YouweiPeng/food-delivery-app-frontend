@@ -17,6 +17,7 @@ const HomePage = () => {
     const backend_origin = import.meta.env.VITE_BACKEND_ORIGIN;
     const dispatch = useDispatch();
     const sideBarRef = useRef(null);
+    
     function encodeBase64Unicode(str) {
         const utf8Bytes = new TextEncoder().encode(str);
         return btoa(String.fromCharCode(...utf8Bytes));
@@ -27,19 +28,17 @@ const HomePage = () => {
             if (sideBarRef.current && !sideBarRef.current.contains(event.target)) {
                 setIsSidebarVisible(false);
             }
-        }
-        if (isSidebarVisible){
+        };
+        if (isSidebarVisible) {
             document.addEventListener("mousedown", handleOutsideClick);
-        }
-        else{
+        } else {
             document.removeEventListener("mousedown", handleOutsideClick);
         }
-        document.addEventListener("mousedown", handleOutsideClick);
         return () => {
             document.removeEventListener("mousedown", handleOutsideClick);
-        }
-    }
-    , [sideBarRef]);
+        };
+    }, [isSidebarVisible]);
+
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
@@ -70,8 +69,7 @@ const HomePage = () => {
         toggleSidebar();
         const get_order_for_user = async () => {
             const url = `${backend_origin}/order/get_order/${userData.uuid}`;
-            const credentials = `${userData.username}:${userData.password}`;
-            const encodedCredentials = encodeBase64Unicode(credentials);
+            const encodedCredentials = encodeBase64Unicode(`${userData.username}:${userData.password}`);
             try {
                 const response = await fetch(url, {
                     method: "GET",
@@ -79,6 +77,7 @@ const HomePage = () => {
                     credentials: "include",
                 });
                 const data = await response.json();
+                console.log(data);
                 dispatch(setUserOrders(data));
             } catch (err) {
                 console.error(err);
@@ -94,34 +93,33 @@ const HomePage = () => {
             {!isLoggin ? (
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fixed bottom-4 right-4 z-50"
-                    onClick={() => 
-                        {
-                            if(isLoggin){
-                                handleMyOrders();
-                            }
-                            dispatch(setModalLogin())}}
+                    onClick={() => {
+                        if (isLoggin) handleMyOrders();
+                        dispatch(setModalLogin());
+                    }}
                 >
                     登录/注册
                 </button>
             ) : (
                 <>
-                    <CgProfile
-                        className="text-black bg-white p-2 rounded-full fixed bottom-4 left-4 z-50 cursor-pointer"
-                        size={60}
+                    <button
+                        className="flex items-center text-black bg-white p-2 rounded-full fixed bottom-4 left-4 z-50 cursor-pointer"
                         onClick={toggleSidebar}
-                    />
+                    >
+                        <CgProfile size={40} />
+                        <span className="ml-2 font-medium">{userData.username}</span>
+                    </button>
 
                     <div
                         className={`fixed top-0 left-0 h-full z-50 transition-transform duration-500 bg-gray-800 p-6 flex flex-col items-end ${
                             isSidebarVisible ? "translate-x-0" : "-translate-x-full"
-                            
                         }`}
                         ref={sideBarRef}
                     >
                         <button
                             className="text-black text-xl mb-6 block"
-                            onClick={() => toggleSidebar()}
-                            id = "sidebar-close-button"
+                            onClick={toggleSidebar}
+                            id="sidebar-close-button"
                         >
                             ✕
                         </button>
@@ -151,8 +149,8 @@ const HomePage = () => {
             )}
 
             {isLoginModal && !isLoggin && <LoginModal />}
-            {isMyinfoModal && isLoggin &&<MyInfoModal />}
-            {isMyOrdersModal && isLoggin &&<MyOrdersModal />}
+            {isMyinfoModal && isLoggin && <MyInfoModal />}
+            {isMyOrdersModal && isLoggin && <MyOrdersModal />}
         </div>
     );
 };

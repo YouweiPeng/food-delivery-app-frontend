@@ -69,6 +69,9 @@ const CheckoutPage = () => {
       if(address[i] === '&'){
         address = address.slice(0, i) + address.slice(i+1);
       }
+      else if(address[i] === '#'){
+        address = address.slice(0, i) + address.slice(i+1);
+      }
     }
     const get_coordinate = async () => {
       const url = `https://api.mapbox.com/search/searchbox/v1/suggest?q=${address}&access_token=${MAPBOX_ACCESS_TOKEN}&session_token=${sessionToken}&proximity=-113.49458748665292,53.527784713984516&country=CA`
@@ -148,7 +151,6 @@ const CheckoutPage = () => {
           className='text-gray-900'
         />
         </div>
-        
         <div>
 
 
@@ -164,6 +166,18 @@ const CheckoutPage = () => {
           defaultValue={userData.address}
           placeholder='请输入地址 (Please enter your address)'
         />
+        </div>
+        <div>
+          <label htmlFor="room_number">房间号</label>
+          <Input
+            size = 'large'
+            type="text" 
+            id="room_number" 
+            name="room_number"
+            className='text-gray-900 p-3'
+            placeholder='请输入房间号 (Please enter your room number)'
+            defaultValue={userData.room_number}
+          />
         </div>
         <div>
 
