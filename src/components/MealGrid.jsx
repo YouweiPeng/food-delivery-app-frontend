@@ -27,7 +27,7 @@ const MealGrid = () => {
     <div className="container mx-auto p-3">
       <h1 className="text-3xl font-bold mb-8 text-center">菜单 (Menu)</h1>
       <p className='p-3'>餐食日期：{getWeekDates().formattedDate}</p>
-      <p className='font-light text-xs'>注：早上十点以后到第二天十点以前点餐都是第二天的餐食，晚上十二点前点餐为优惠价！</p>
+      <p className='font-light text-xs'>注：早上十点以后到第二天十一点以前点餐都是第二天的餐食，晚上十二点前点餐为优惠价！</p>
       <div className="mb-6">
         <label htmlFor="daySelector" className="mr-2">选择日期:</label>
         <select id="daySelector" 

@@ -2,10 +2,9 @@ import { format, addDays, startOfWeek } from 'date-fns';
 
 export const getWeekDates = () => {
   const today = new Date();
-  if (today.getHours() >= 10) {
+  if (today.getHours() >= 11) {
     today.setTime(today.getTime() + (24 * 60 * 60 * 1000));
   }
-  // today.setTime(today.getTime() + (78 * 24 * 60 * 60 * 1000))
   const formattedDate = `${today.getFullYear()}-${(today.getMonth() + 1) >= 10? today.getMonth() + 1:'0' + (today.getMonth() + 1)}-${ today.getDate() >= 10? today.getDate():'0'+ today.getDate()}`;
   const thisMonday = startOfWeek(today, { weekStartsOn: 1 });
   
@@ -16,7 +15,7 @@ export const getWeekDates = () => {
     thisWeek: thisWeek.map(date => ({ label: format(date, 'yyyy-MM-dd (EEEE)'), date: format(date, 'yyyy-MM-dd') })),
     nextWeek: nextWeek.map(date => ({ label: format(date, 'yyyy-MM-dd (EEEE)'), date: format(date, 'yyyy-MM-dd') })),
     today: today,
-    formattedDate: formattedDate
+    formattedDate: formattedDate,
   };
 };
 

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { setModalMyOrders, setOrderCancelModal, setUserOrders} from '../store/interfaceSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import OrderCancelModal from './OrderCancelModal';
-
+import { getWeekDates } from '../utils/dateUtils';
+import { format, parseISO } from 'date-fns';
 const MyOrdersModal = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.interfaceSlice.user);
@@ -94,7 +95,9 @@ const MyOrdersModal = () => {
                     >
                       {order.status === 'pending' ? "配送中" : order.status === 'delivered' ? "已送达" : "已取消"}
                     </span>
-                    {order.status === 'pending' && (
+                    {order.status === 'pending' && 
+                      new Date() < new Date(order.cancel_time) &&
+                    (
                       <button
                         onClick={() => {
                           setCancelOrderId(order.id);
