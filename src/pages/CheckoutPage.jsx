@@ -10,6 +10,7 @@ import {setRoute, setDistance, setCoordinates} from '../store/interfaceSlice'
 import { setExtraFee } from '../store/interfaceSlice';
 import { set } from 'date-fns';
 import { Input } from 'antd';
+import Header from '../components/Header';
 const CheckoutPage = () => {
   const { TextArea } = Input;
   const formRef = useRef(null);
@@ -106,6 +107,7 @@ const CheckoutPage = () => {
 
   return (
     <section className='flex flex-col text-center gap-y-4 items-center p-4'>
+      <Header />
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">点单餐食 (Order Items)</h2>
         <p className='p-2'>餐食日期：{formattedDate}</p>
@@ -168,7 +170,7 @@ const CheckoutPage = () => {
         />
         </div>
         <div>
-          <label htmlFor="room_number">房间号</label>
+          <label htmlFor="room_number">房间号 可选填</label>
           <Input
             size = 'large'
             type="text" 

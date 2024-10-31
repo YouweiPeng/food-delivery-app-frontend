@@ -6,7 +6,7 @@ import LoginModal from "../components/LoginModal";
 import MyInfoModal from "../components/MyInfoModal";
 import MyOrdersModal from "../components/MyOrdersModal";
 import { setIsLoggin, setModalLogin, setUser, setModalMyInfo, setUserOrders, setModalMyOrders } from "../store/interfaceSlice";
-
+import Header from "../components/Header";
 const HomePage = () => {
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const isLoggin = useSelector((state) => state.interfaceSlice.isLoggin);
@@ -88,8 +88,8 @@ const HomePage = () => {
 
     return (
         <div className="relative">
+            <Header />
             <MealGrid />
-
             {!isLoggin ? (
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fixed bottom-4 right-4 z-50"

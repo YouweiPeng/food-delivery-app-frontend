@@ -10,6 +10,7 @@ import { setMealInfo, setModalInfo, setIsLoggin, setUser } from './store/interfa
 import { mealsByDay } from './utils/testData';
 import { daysOfWeek, getWeekDates } from './utils/dateUtils';
 import SuccessPage from './pages/SuccessPage';
+import DeliveryPersonPage from './pages/DeliveryPersonPage';
 function App() {
   const [mealsData, setMealsData] = useState({});
   const BackEndOrigin = import.meta.env.VITE_BACKEND_ORIGIN;
@@ -17,6 +18,7 @@ function App() {
   const mealInfo = useSelector((state) => state.interfaceSlice.mealInfo);
   const backend_origin = import.meta.env.VITE_BACKEND_ORIGIN;
   const IsLoggin = useSelector((state) => state.interfaceSlice.isLoggin);
+  const user = useSelector((state) => state.interfaceSlice.user);
   console.log(mealsByDay)
   console.log(mealInfo)
   useEffect(() => {
@@ -36,7 +38,9 @@ function App() {
             phone_number: data.phone_number,
             uuid: data.uuid,
             room_number: data.room_number,
+            is_staff: data.is_staff,
           }));
+          console.log("Auto login info", data);
           dispatch(setIsLoggin(true));
           console.log("Auto login successful.");
         }
@@ -192,10 +196,9 @@ function App() {
   }, [mealsData])
   return (
     <BrowserRouter>
-      <div className="bg-lime-100 w-full flex flex-col items-center justify-center relative mt-[14.28vh]" style={{ minHeight: '100vh' }}>
-        <Header />
+      <div className={`bg-lime-100 w-full flex flex-col items-center justify-center relative ${!user.is_staff ?"mt-[14.28vh]":"" } `} style={{ minHeight: '100vh' }}>
         <Routes>
-          <Route path="/" element={<HomePage/>} />
+          <Route path="/" element={ !user.is_staff?<HomePage/>:<DeliveryPersonPage/>} />
           <Route path="/checkout" element={<CheckoutPage/>} />
           <Route path="/combo" element={<ComboSelectionPage />} />
           <Route path="/success/:session_id" element={<SuccessPage />} />

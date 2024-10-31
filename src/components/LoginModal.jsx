@@ -62,8 +62,19 @@ const LoginModal = () => {
           address: userData.address, 
           phone_number: userData.phone_number, 
           password:userData.password,
-          uuid:uData.uuid, 
+          uuid:uData.uuid,
+          is_staff: uData.is_staff,
           room_number:userData.room_number}))
+        console.log("register  info", {
+          username:userData.username, 
+          email:userData.email, 
+          address: userData.address, 
+          phone_number: userData.phone_number, 
+          password:userData.password,
+          uuid:uData.uuid,
+          is_staff: uData.is_staff,
+          room_number:userData.room_number
+        })
         dispatch(setModalLogin())
         })
 
@@ -104,8 +115,10 @@ const LoginModal = () => {
           address: data.address,
           phone_number: data.phone_number,
           uuid: data.uuid,
-          room_number: data.room_number
+          room_number: data.room_number,
+          is_staff: data.is_staff,
         }));
+        console.log("login info", data)
         dispatch(setIsLoggin(true));
         dispatch(setModalLogin());
       } else {
@@ -207,13 +220,13 @@ const LoginModal = () => {
                 htmlFor="username"
                 className="block text-sm font-medium text-gray-700"
               >
-                用户名或邮箱
+                {isRegistering ? "用户名" : "用户名或邮箱"}
               </label>
               <input
                 type="text"
                 id="username"
                 className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900"
-                placeholder="输入用户名或者邮箱"
+                placeholder={isRegistering ? "用户名" : "用户名或邮箱"}
                 required
               />
             </div>
