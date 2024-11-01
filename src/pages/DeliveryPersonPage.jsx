@@ -88,24 +88,32 @@ const DeliveryPersonPage = () => {
         setOrders(updatedOrders);
     };
     const getOptimizedRoute = async (orders) => {
-        const orgin_coordinates = `${origin.lon},${origin.lat}`;
+        const origin_coordinates = `${origin.lon},${origin.lat}`;
         const coordinates = orders.map(order => `${order.lon},${order.lat}`).join(';');
-        const final_coordinates = `${orgin_coordinates};${coordinates}`;
+        const final_coordinates = `${origin_coordinates};${coordinates}`;
         const optimizationUrl = `https://api.mapbox.com/optimized-trips/v1/mapbox/driving/${final_coordinates}?source=first&destination=last&roundtrip=false&access_token=${import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}`;
     
         const response = await fetch(optimizationUrl);
         const data = await response.json();
-        console.log("optimized-trips raw data",data);
+        console.log("optimized-trips raw data", data);
+    
         if (response.ok && data.trips) {
+            // Sort waypoints based on their distance from the origin
+            const sortedWaypoints = data.waypoints.slice(1).sort((a, b) => a.distance - b.distance);
+    
+            // Include the origin as the first point
+            sortedWaypoints.unshift(data.waypoints[0]);
+    
             return {
-                geometry: data.trips[0].geometry, 
-                waypoints: data.waypoints, 
+                geometry: data.trips[0].geometry,
+                waypoints: sortedWaypoints, // Sorted waypoints based on distance from origin
             };
         } else {
             console.error("Failed to fetch optimized route:", data.message);
             return null;
         }
     };
+    
     const openRouteModal = async () => {
         const routeData = await getOptimizedRoute(orders);
         if (routeData) setOptimizedRoute(routeData);
@@ -189,7 +197,7 @@ const DeliveryPersonPage = () => {
                                     {isRouteModalOpen && optimizedRoute && (
                                         <RouteModal
                                         orders={orders}
-                                        optimizedRoute={optimizedRoute}
+                                        origin={origin}
                                             onClose={closeRouteModal}
                                         />
                                     )}
