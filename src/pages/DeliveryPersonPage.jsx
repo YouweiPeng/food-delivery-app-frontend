@@ -3,7 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import { setUser, setIsLoggin, setUserOrders } from "../store/interfaceSlice";
 import { CgProfile } from "react-icons/cg";
 import { set } from "date-fns";
+import mapboxgl from "mapbox-gl";
 import DeliveryPersonOrderFinishModal from "../components/DeliveryPersonOrderFinishModal";
+import RouteModal from "../components/RouteModal";
 const DeliveryPersonPage = () => {
     const user = useSelector((state) => state.interfaceSlice.user);
     const isAuth = useSelector((state) => state.interfaceSlice.user.is_staff);
@@ -14,6 +16,10 @@ const DeliveryPersonPage = () => {
     const dispatch = useDispatch();
     const sideBarRef = useRef(null);
     const [isOrderFinishModalOpen, setIsOrderFinishModalOpen] = useState(false);
+    const origin = { lat: 53.523423, lon: -113.622727 };
+    mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+    const [isRouteModalOpen, setIsRouteModalOpen] = useState(false);
+    const [optimizedRoute, setOptimizedRoute] = useState(null);
     useEffect(() => {
         const get_all_orders_for_today = async () => {
             const url = `${backend_origin}/order/delivery/`;
@@ -81,6 +87,34 @@ const DeliveryPersonPage = () => {
         const updatedOrders = orders.filter((order) => order.id !== orderId);
         setOrders(updatedOrders);
     };
+    const getOptimizedRoute = async (orders) => {
+        const orgin_coordinates = `${origin.lon},${origin.lat}`;
+        const coordinates = orders.map(order => `${order.lon},${order.lat}`).join(';');
+        const final_coordinates = `${orgin_coordinates};${coordinates}`;
+        const optimizationUrl = `https://api.mapbox.com/optimized-trips/v1/mapbox/driving/${final_coordinates}?source=first&destination=last&roundtrip=false&access_token=${import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}`;
+    
+        const response = await fetch(optimizationUrl);
+        const data = await response.json();
+        console.log("optimized-trips raw data",data);
+        if (response.ok && data.trips) {
+            return {
+                geometry: data.trips[0].geometry, 
+                waypoints: data.waypoints, 
+            };
+        } else {
+            console.error("Failed to fetch optimized route:", data.message);
+            return null;
+        }
+    };
+    const openRouteModal = async () => {
+        const routeData = await getOptimizedRoute(orders);
+        if (routeData) setOptimizedRoute(routeData);
+        setIsRouteModalOpen(true);
+    };
+    const closeRouteModal = () => {
+        setIsRouteModalOpen(false);
+        setOptimizedRoute(null);
+    };
     return (
         <div>
             {isAuth ? (
@@ -110,7 +144,13 @@ const DeliveryPersonPage = () => {
                             ✕
                         </button>
                         <button
-                            className="bg-red-600 text-white p-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl"
+                        className="bg-blue-600 text-white p-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl"
+                        onClick={openRouteModal}
+                        >
+                            查看路线图
+                        </button>
+                        <button
+                            className="bg-red-600 text-white p-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl mt-5"
                             onClick={handleLogout}
                         >
                             登出
@@ -146,6 +186,13 @@ const DeliveryPersonPage = () => {
                                             finishOrderCallback={() => finishOrderAndRemove(selectedOrder.id)}
                                                     />
                                                 )}
+                                    {isRouteModalOpen && optimizedRoute && (
+                                        <RouteModal
+                                        orders={orders}
+                                        optimizedRoute={optimizedRoute}
+                                            onClose={closeRouteModal}
+                                        />
+                                    )}
                             </div>
                         ) : (
                             <p className="mt-4 text-gray-500">No orders for today.</p>

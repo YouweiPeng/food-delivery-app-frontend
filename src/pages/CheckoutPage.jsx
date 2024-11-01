@@ -27,10 +27,9 @@ const CheckoutPage = () => {
   const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
   const isAddressConfirmModalOpen = useSelector((state) => state.interfaceSlice.isAddressConfirmModalOpen);
   const [sessionToken] = useState(uuidv4());
-  
+  const coordinates = useSelector((state) => state.interfaceSlice.coordinates);
   const dispatch = useDispatch();
   const submitForm = () => {
-    // re-check the unit price
     const currentHour = new Date().getHours();
     unitPrice = currentHour < 24 && currentHour > 10 ? 19.8 : 22;
     const today = new Date();
@@ -43,6 +42,8 @@ const CheckoutPage = () => {
     if (formRef.current) {
       formRef.current.querySelector("input[name='total_price']").value = (unitPrice * quantity).toFixed(2);
       formRef.current.querySelector("input[name='content']").value = formattedTodayMeals;
+      formRef.current.querySelector("input[name='lon']").value = coordinates[0][0];
+      formRef.current.querySelector("input[name='lat']").value = coordinates[0][1];
       formRef.current.submit();
     }
   };
@@ -89,6 +90,7 @@ const CheckoutPage = () => {
       const data2 = await response2.json();
       const customer_coordinate = [data2.features[0].geometry.coordinates, data.suggestions[0].name];
       dispatch(setCoordinates(customer_coordinate));
+      console.log("This is the coordinates",customer_coordinate);
       const get_distance = async () => {
         const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${customer_coordinate[0]}, ${customer_coordinate[1]};-113.520787,53.525665?&geometries=geojson&access_token=${MAPBOX_ACCESS_TOKEN}`
         const response = await fetch(url);
@@ -225,6 +227,8 @@ const CheckoutPage = () => {
         <input type="hidden" name="uuid" value={userData.uuid} />
         <input type="hidden" name="content" value={formattedTodayMeals} />
         <input type="hidden" name="extraFee" value={fee} />
+        <input type="hidden" name="lon"/>
+        <input type="hidden" name="lat"/>
         <button 
         className='bg-green-500 text-white p-2 rounded-md'
         type="submit">订购餐食</button>
