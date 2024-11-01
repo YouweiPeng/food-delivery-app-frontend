@@ -155,7 +155,7 @@ const DeliveryPersonPage = () => {
                         className="bg-blue-600 text-white p-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl"
                         onClick={openRouteModal}
                         >
-                            查看路线图
+                            查看分布图
                         </button>
                         <button
                             className="bg-red-600 text-white p-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl mt-5"
