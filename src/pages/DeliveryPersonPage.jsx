@@ -211,7 +211,9 @@ const DeliveryPersonPage = () => {
                                         ref={(el) => (orderRefs.current[order.order_code] = el)}
                                     >
                                         <p><strong>订单号:</strong> {order.order_code}</p>
-                                        <p><strong>地址:</strong> {order.address}</p>
+                                        <a
+                                            href={`https://www.google.com/maps/place/${order.address}`}
+                                        ><strong>地址:</strong> {order.address}  </a>
                                         <p><strong>电话号码:</strong> {order.phone_number}</p>
                                         <p><strong>邮箱:</strong> {order.email}</p>
                                         <p><strong>价格:</strong> ${order.price}</p>
