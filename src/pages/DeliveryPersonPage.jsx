@@ -212,8 +212,12 @@ const DeliveryPersonPage = () => {
                                     >
                                         <p><strong>订单号:</strong> {order.order_code}</p>
                                         <a
-                                            href={`https://www.google.com/maps/place/${order.address}`}
-                                        ><strong>地址:</strong> {order.address}  </a>
+                                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(order.address)}`}
+                                            target="_blank"  // Opens the link in a new tab
+                                            rel="noopener noreferrer" // Adds security to the link
+                                        >
+                                            <strong>地址:</strong> {order.address}
+                                        </a>
                                         <p><strong>电话号码:</strong> {order.phone_number}</p>
                                         <p><strong>邮箱:</strong> {order.email}</p>
                                         <p><strong>价格:</strong> ${order.price}</p>
