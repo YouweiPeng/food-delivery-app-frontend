@@ -217,7 +217,9 @@ const DeliveryPersonPage = () => {
                                         <p><strong>价格:</strong> ${order.price}</p>
                                         <p><strong>份数:</strong> {order.quantity}</p>
                                         <p><strong>房间号:</strong> {order.room_number || "客户未填"}</p>
-                                        <button onClick={() => handleFinishOrder(order)}>完成订单</button>
+                                        <button 
+                                        className="bg-blue-600 text-white p-2 rounded mt-2"
+                                        onClick={() => handleFinishOrder(order)}>完成订单</button>
                                     </div>
                                 ))}
                                 {isOrderFinishModalOpen && (
