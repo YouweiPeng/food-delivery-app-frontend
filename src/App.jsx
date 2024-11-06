@@ -157,7 +157,7 @@ function App() {
         let formatTime = `${time.getFullYear()}-${(time.getMonth() + 1) >= 10? time.getMonth() + 1:'0' + (time.getMonth() + 1)}-${ time.getDate() >=10?time.getDate():'0'+time.getDate()}`
         console.log('Monday of the current week is', formatTime);
         // change the start date in here, now it is 2024-10-14
-        const weekDifference = Math.floor((time.getTime() - new Date(2024, 9, 14).getTime()) / (7 * 24 * 60 * 60 * 1000));
+        const weekDifference = Math.floor((time.getTime() - new Date(2024, 10, 4).getTime()) / (7 * 24 * 60 * 60 * 1000));
         console.log('we started', weekDifference, "weeks");
         const parity = weekDifference % 2 === 0 ? 'even' : 'odd';
         console.log('This week is', parity);

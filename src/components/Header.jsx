@@ -22,7 +22,7 @@ const Header = () => {
           className="h-10 sm:h-12 mr-2 sm:mr-4 rounded-full cursor-pointer"
           
         />
-        <h1 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold">三菜一汤</h1>
+        <h1 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold">三样菜</h1>
       </div>
 
       <div className="flex space-x-2 sm:space-x-4">
