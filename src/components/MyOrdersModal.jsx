@@ -84,7 +84,7 @@ const MyOrdersModal = () => {
                   <div>
                     <p className="font-bold">订单号: {order.order_code}</p>
                     <p className="text-gray-600">日期: {formatDate(order.date)}</p>
-                    <p className="text-gray-600">价格: <strong>${order.price}</strong></p>
+                    <p className="text-gray-600">餐价: <strong>${order.price}</strong></p>
                     <span
                       className={`inline-block px-2 py-1 rounded text-white mt-2 ${
                         order.status === 'delivered' ? 'bg-green-500' :
