@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
-import Header from '../components/Header'
 const SuccessPage = () => {
     const [sessionData, setSessionData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -41,7 +40,6 @@ const SuccessPage = () => {
 
     return (
 <div className="max-w-lg mx-auto rounded-lg p-6">
-    <Header />
     <BackButton />
     <h1 className="text-3xl font-bold text-center text-green-600 mb-6">付款成功</h1>
     <h2 className="text-xl font-semibold text-gray-700 mb-4">感谢您的订购</h2>
