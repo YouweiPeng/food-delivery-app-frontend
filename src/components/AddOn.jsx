@@ -7,6 +7,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
         <div className='flex flex-col'>
             需要加饮料吗？(3 元一瓶)
             <button
+            className='bg-blue-500 text-white px-2 py-1 rounded-md'
             onClick={() => 
             {
                 setIsExpand(!isExpand)}
@@ -21,6 +22,8 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
 
         <div className="flex justify-between mt-2">
             <button
+
+            className='bg-white text-black'
             onClick={()=>{
                 if(coke>0){
                     setCoke(coke-1)
@@ -36,6 +39,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
             </div>
             </div>
             <button
+            className='bg-white text-black'
             onClick={() => setCoke(coke+1)}
             >+</button>
             
@@ -44,6 +48,8 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
         
         <div className="flex justify-between mt-2">
             <button
+
+            className='bg-white text-black'
             onClick={()=>{
                 if(sevenUp>0){
                     setSevenUp(sevenUp-1)
@@ -59,6 +65,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
             </div>
             </div>
             <button
+            className='bg-white text-black'
             onClick={() => setSevenUp(sevenUp+1)}
             >+</button>
             
@@ -67,6 +74,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
         
         <div className="flex justify-between mt-2">
             <button
+            className='bg-white text-black'
             onClick={()=>{
                 if(canadaDry>0){
                     setCanadaDry(canadaDry-1)
@@ -82,6 +90,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
             </div>
             </div>
             <button
+            className='bg-white text-black'
             onClick={() => setCanadaDry(canadaDry+1)}
             >+</button>
             
@@ -90,6 +99,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
         
         <div className="flex justify-between mt-2">
             <button
+            className='bg-white text-black'
             onClick={()=>{
                 if(icetea>0){
                     setIcetea(icetea-1)
@@ -105,6 +115,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
             </div>
             </div>
             <button
+            className='bg-white text-black'
             onClick={() => setIcetea(icetea+1)}
             >+</button>
             
@@ -113,6 +124,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
         
         <div className="flex justify-between mt-2">
             <button
+            className='bg-white text-black'
             onClick={()=>{
                 if(sprite>0){
                     setSprite(sprite-1)
@@ -128,6 +140,7 @@ const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDr
             </div>
             </div>
             <button
+            className='bg-white text-black'
             onClick={() => setSprite(sprite+1)}
             >+</button>
             
