@@ -2,7 +2,7 @@ import { format, addDays, startOfWeek } from 'date-fns';
 
 export const getWeekDates = () => {
   const today = new Date();
-  if (today.getHours() >= 11) {
+  if (today.getHours() >= 10) {
     today.setTime(today.getTime() + (24 * 60 * 60 * 1000));
   }
   const formattedDate = `${today.getFullYear()}-${(today.getMonth() + 1) >= 10? today.getMonth() + 1:'0' + (today.getMonth() + 1)}-${ today.getDate() >= 10? today.getDate():'0'+ today.getDate()}`;
