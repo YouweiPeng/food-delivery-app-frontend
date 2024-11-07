@@ -223,6 +223,7 @@ const DeliveryPersonPage = () => {
                                         <p><strong>价格:</strong> ${order.price}</p>
                                         <p><strong>份数:</strong> {order.quantity}</p>
                                         <p><strong>房间号:</strong> {order.room_number || "客户未填"}</p>
+                                        <p><strong>附加:</strong> {order.addOns || "无附加"}</p>
                                         <button 
                                         className="bg-blue-600 text-white p-2 rounded mt-2"
                                         onClick={() => handleFinishOrder(order)}>完成订单</button>

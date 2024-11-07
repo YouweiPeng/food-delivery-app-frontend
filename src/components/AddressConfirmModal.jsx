@@ -17,15 +17,16 @@ const AddressConfirmModal = ({ onConfirm }) => {
 
     let extraFeeText = "地址在免运费范围内";
     let extraFee = 0;
-    if (distance > 3 && distance < 5) {
-        extraFeeText = "地址超过3公里，将收取3元运费";
-        extraFee = 3;
-    } else if (distance >= 5 && distance < 10) {
-        extraFeeText = "地址超过5公里，将收取5元运费";
-        extraFee = 5;
-    } else if (distance >= 10) {
-        extraFeeText = "地址超过10公里，将收取8元运费";
-        extraFee = 8;
+    if (distance > 10 && distance < 15) {
+        extraFeeText = "地址超过10公里，将收取12元运费";
+        extraFee = 12;
+    } else if (distance >= 15 && distance < 20) {
+        extraFeeText = "地址超过15公里，将收取20元运费";
+        extraFee = 20;
+    }
+    else if (distance > 20) {
+        extraFeeText = "地址超过20公里，将收取25元运费";
+        extraFee = 25;
     }
     useEffect(() => {
         dispatch(setExtraFee(extraFee));
@@ -97,7 +98,7 @@ const AddressConfirmModal = ({ onConfirm }) => {
                         配送距离: <span className="font-bold">{distance} km</span>
                     </p>
                     <h2 className="font-bold">{extraFeeText}</h2>
-                    <p className="font-light">注：3公里范围内免配送费，3-5公里为3元，5-10公里为5元，10公里以上为8元</p>
+                    <p className="font-light">注：以学校hub为起点，10公里以内免配送费，10公里-15公里收取12元运费，超过15公里收取20元运费</p>
                 </div>
                 <div className="flex justify-end mt-4">
                     <button

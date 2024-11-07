@@ -11,12 +11,13 @@ import { setExtraFee } from '../store/interfaceSlice';
 import { set } from 'date-fns';
 import { Input } from 'antd';
 import Header from '../components/Header';
+import AddOn from '../components/AddOn';
 const CheckoutPage = () => {
   const { TextArea } = Input;
   const formRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
   const hour = new Date().getHours();
-  let unitPrice = hour < 24 && hour > 10 ? 19.8 : 22;
+  let unitPrice = hour < 24 && hour > 10 ? 23 : 25;
   const today = getWeekDates().today;
   const formattedDate = getWeekDates().formattedDate;
   const meals = useSelector((state) => state.interfaceSlice.mealInfo || {});
@@ -29,9 +30,27 @@ const CheckoutPage = () => {
   const [sessionToken] = useState(uuidv4());
   const coordinates = useSelector((state) => state.interfaceSlice.coordinates);
   const dispatch = useDispatch();
+  const [address, setAddress] = useState("");
+  const [roomNumber, setRoomNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [coke, setCoke] = useState(0);
+  const [sevenUp, setSevenUp] = useState(0);
+  const [sprite, setSprite] = useState(0);
+  const [canadaDry, setCanadaDry] = useState(0);
+  const [icetea, setIcetea] = useState(0);
+  const [addOnFee, setAddOnFee] = useState(0);
+  const [addOns, setAddOns] = useState("");
+
+  useEffect(() => {
+    setAddress(userData.address || "");
+    setRoomNumber(userData.room_number || "");
+    setPhoneNumber(userData.phone_number || "");
+    setEmail(userData.email || "");
+  }, [userData]);
   const submitForm = () => {
     const currentHour = new Date().getHours();
-    unitPrice = currentHour < 24 && currentHour > 10 ? 19.8 : 22;
+    unitPrice = currentHour < 24 && currentHour > 10 ? 23 : 25;
     const today = new Date();
     if (today.getHours() >= 10) {
       today.setTime(today.getTime() + (24 * 60 * 60 * 1000));
@@ -44,6 +63,8 @@ const CheckoutPage = () => {
       formRef.current.querySelector("input[name='content']").value = formattedTodayMeals;
       formRef.current.querySelector("input[name='lon']").value = coordinates[0][0];
       formRef.current.querySelector("input[name='lat']").value = coordinates[0][1];
+      formRef.current.querySelector("input[name='addOn']").value = get_add_on_string();
+      formRef.current.querySelector("input[name='addOnFee']").value = (coke + sevenUp + sprite + canadaDry + icetea) * 3;
       formRef.current.submit();
     }
   };
@@ -106,7 +127,25 @@ const CheckoutPage = () => {
     get_coordinate();
     // event.target.submit();
   };
-
+  const get_add_on_string = () => {
+    let add_on_string = "";
+    if(coke > 0){
+      add_on_string += `可乐 * ${coke} \n`;
+    }
+    if(sevenUp > 0){
+      add_on_string += `七喜 * ${sevenUp} \n`;
+    }
+    if(sprite > 0){
+      add_on_string += `雪碧 * ${sprite} \n`;
+    }
+    if(canadaDry > 0){
+      add_on_string += `Canada Dry * ${canadaDry} \n`;
+    }
+    if(icetea > 0){
+      add_on_string += `冰红茶 * ${icetea} \n`;
+    }
+    return add_on_string;
+  }
   return (
     <section className='flex flex-col text-center gap-y-4 items-center p-4'>
       <Header />
@@ -128,10 +167,17 @@ const CheckoutPage = () => {
 
       <BackButton />
 
-      <div className="product">
+      <div className="product w-2/3">
         <div className="description">
-          <h3 className={`font-bold ${unitPrice<20?"text-lime-700":""}`}>{unitPrice<20?"优惠价:":"单价:"} ${unitPrice.toFixed(2)}</h3>
+          <h3 className={`font-bold ${unitPrice<25?"text-lime-700":""}`}>{unitPrice<25?"优惠价:":"单价:"} ${unitPrice.toFixed(2)}</h3>
         </div>
+          <AddOn
+            coke={coke} setCoke={setCoke}
+            sevenUp={sevenUp} setSevenUp={setSevenUp}
+            sprite={sprite} setSprite={setSprite}
+            canadaDry={canadaDry} setCanadaDry={setCanadaDry}
+            icetea={icetea} setIcetea={setIcetea}
+          />
       </div>
       <form
         action={`${backend_origin}/create-checkout-session/`}
@@ -140,6 +186,7 @@ const CheckoutPage = () => {
         className='flex flex-col w-5/6 max-w-56 gap-y-4'
         ref={formRef}
       >
+
         <div>
         <label htmlFor="quantity">餐食数量</label>
         <Input
@@ -166,8 +213,9 @@ const CheckoutPage = () => {
           id="address" 
           required 
           name="address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
           className='text-gray-900 p-3'
-          defaultValue={userData.address}
           placeholder='请输入地址 (Please enter your address)'
         />
         </div>
@@ -178,9 +226,10 @@ const CheckoutPage = () => {
             type="text" 
             id="room_number" 
             name="room_number"
+            value={roomNumber}
+            onChange={(e) => setRoomNumber(e.target.value)}
             className='text-gray-900 p-3'
             placeholder='请输入房间号 (Please enter your room number)'
-            defaultValue={userData.room_number}
           />
         </div>
         <div>
@@ -193,8 +242,9 @@ const CheckoutPage = () => {
           id="number" 
           required 
           name="phone_number"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
           className='text-gray-900 p-3'
-          defaultValue={userData.phone_number}
         />
         </div>
 
@@ -207,8 +257,9 @@ const CheckoutPage = () => {
           required
           name="email"
           className='text-gray-900 p-3'
-          defaultValue={userData.email}
           placeholder='请输入邮箱 (Please enter your email)'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         </div>
 
@@ -224,11 +275,13 @@ const CheckoutPage = () => {
         </h3>
 
         <input type="hidden" name="total_price" value={totalPrice} />
-        <input type="hidden" name="uuid" value={userData.uuid} />
+        <input type="hidden" name="uuid" value={userData.uuid ||""} />
         <input type="hidden" name="content" value={formattedTodayMeals} />
         <input type="hidden" name="extraFee" value={fee} />
         <input type="hidden" name="lon"/>
         <input type="hidden" name="lat"/>
+        <input type="hidden" name="addOnFee" />
+        <input type="hidden" name="addOn" />
         <button 
         className='bg-green-500 text-white p-2 rounded-md'
         type="submit">订购餐食</button>

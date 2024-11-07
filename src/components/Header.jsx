@@ -1,4 +1,4 @@
-import logo from '../assets/logo.png';
+import logo from '../assets/logo(chopsticks).webp';
 import MUIButton from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +15,7 @@ const Header = () => {
         navigate('/')
         window.scrollTo(0, 0);
       }}
+
       >
         <img
           src={logo}
@@ -22,7 +23,20 @@ const Header = () => {
           className="h-10 sm:h-12 mr-2 sm:mr-4 rounded-full cursor-pointer"
           
         />
+
+        <div className='flex flex-col'>
         <h1 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold">三样菜</h1>
+        <p 
+          className="text-xs xs:text-sm sm:text-lg lg:text-xl font-thin italic"
+        >
+          营养便当
+           </p>
+           <p
+           className='text-xs xs:text-sm sm:text-lg lg:text-xl font-thin italic' 
+           >
+            每天不重样
+           </p>
+        </div>
       </div>
 
       <div className="flex space-x-2 sm:space-x-4">

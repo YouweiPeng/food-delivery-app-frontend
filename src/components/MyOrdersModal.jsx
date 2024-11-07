@@ -129,6 +129,7 @@ const MyOrdersModal = () => {
                     <p><strong>电话:</strong> {order.phone_number}</p>
                     <p><strong>餐数:</strong> {order.quantity}</p>
                     <p><strong>备注:</strong> {order.comment || 'No comments'}</p>
+                    <p><strong>附加:</strong> {order.addOns || '无附加'}</p>
                     {order.image && (
                       <div className="mt-4 flex flex-col items-center justify-center">
                         <h3 className="font-bold">照片(点击可放大):</h3>
