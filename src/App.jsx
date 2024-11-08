@@ -196,7 +196,7 @@ function App() {
   }, [mealsData])
   return (
     <BrowserRouter>
-    <Header />
+    {user && !user.is_staff && <Header />}
       <div className={`bg-lime-100 w-full flex flex-col items-center justify-center relative ${!user.is_staff ?"mt-[14.28vh]":"" } `} style={{ minHeight: '100vh' }}>
         <Routes>
           <Route path="/" element={ !user.is_staff?<HomePage/>:<DeliveryPersonPage/>} />
