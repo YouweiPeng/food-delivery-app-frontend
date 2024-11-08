@@ -27,12 +27,12 @@ const Header = () => {
         <div className='flex flex-col'>
         <h1 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold">三样菜</h1>
         <p 
-          className="text-xs xs:text-sm sm:text-lg lg:text-xl font-thin italic"
+          className="text-xs xs:text-sm sm:text-lg lg:text-xl font-light italic"
         >
           营养便当
            </p>
            <p
-           className='text-xs xs:text-sm sm:text-lg lg:text-xl font-thin italic' 
+           className='text-xs xs:text-sm sm:text-lg lg:text-xl font-light italic' 
            >
             每天不重样
            </p>

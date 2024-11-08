@@ -13,7 +13,7 @@ const MealModal = ({ meal, onClose }) => {
           >
             ✕
           </button>
-          <img src={`data:image/png;base64, ${meal.picture}`} alt={meal.name} className="w-full h-60 object-fill" />
+          <img src={`data:image/png;base64, ${meal.picture}`} alt={meal.name} className="w-full max-h-60" />
           <div className="p-6 max-h-48 overflow-y-auto">
             <h2 className="text-2xl font-bold mb-2">{meal.name}</h2>
             <p className="text-gray-700">

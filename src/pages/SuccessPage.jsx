@@ -43,6 +43,8 @@ const SuccessPage = () => {
     <BackButton />
     <h1 className="text-3xl font-bold text-center text-green-600 mb-6">付款成功</h1>
     <h2 className="text-xl font-semibold text-gray-700 mb-4">感谢您的订购</h2>
+    <h3 className="text-lg font-semibold text-gray-700 mb-4"
+    >配送员电话：7808859719</h3>
     {sessionData ? (
         <div className="space-y-4">
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">订单信息</h2>

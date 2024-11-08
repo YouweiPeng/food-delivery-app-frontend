@@ -4,17 +4,17 @@ import React, { useState } from 'react';
 const AddOn = ({ coke, setCoke, sevenUp, setSevenUp, sprite, setSprite, canadaDry, setCanadaDry, icetea, setIcetea }) => {
     const [isExpand, setIsExpand] = useState(false);
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col items-center'>
             需要加饮料吗？(3 元一瓶)
             <button
-            className='bg-blue-500 text-white px-2 py-1 rounded-md'
+            className='bg-blue-500 text-white px-2 py-1 rounded-md max-w-60 mt-3'
             onClick={() => 
             {
                 setIsExpand(!isExpand)}
 
             }
             >
-                {isExpand ? '收起' : '点击展开'}
+                {isExpand ? '收起' : '显示饮料'}
             </button>
         { isExpand && (
 
