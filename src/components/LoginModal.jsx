@@ -246,6 +246,32 @@ const LoginModal = () => {
                 required
               />
             </div>
+
+            {
+              isRegistering && (
+                <div className="relative">
+                <label
+                className="text-sm font-medium text-gray-700 mx-2"
+                htmlFor="is_hubmall"
+                >地址为学校吗</label>
+                <input type="checkbox" id="is_hubmall" name="is_hubmall"
+                checked={
+                    address.toLocaleLowerCase() === "hub mall"
+                }
+                onClick={(e) => {
+                    if(e.target.checked){
+                        setAddress("Hub Mall");
+                    }
+                    else{
+                        setAddress("");
+                    }
+    
+                }
+                }
+                />
+                </div>
+              )
+            }
             {
               isRegistering && (
                 <div className="mb-4">

@@ -208,6 +208,28 @@ const MyInfoModal = () => {
                 地址
             </label>
             
+           {isEditing && (
+            <div className="relative">
+            <label
+            className="text-sm font-medium text-gray-700 mx-2"
+            htmlFor="is_hubmall"
+            >地址为学校吗</label>
+            <input type="checkbox" id="is_hubmall" name="is_hubmall"
+            checked={tempoAddress.toLowerCase() === "hub mall"}
+            onClick={(e) => {
+                if(e.target.checked){
+                    setTempoAddress("Hub Mall");
+                    setEditedUser({ ...editedUser, address: "Hub Mall, University of Alberta, Edmonton, AB, Canada" });
+                }
+                else{
+                    setTempoAddress("");
+                }
+
+            }
+            }
+            />
+            </div>
+        )}
 
             {isEditing ? (
                 <div className="relative">
