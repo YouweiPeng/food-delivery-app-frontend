@@ -205,7 +205,7 @@ const CheckoutPage = () => {
 
         <p
           className='text-xs text-start'
-        >注：如果在UA学校区域收餐，由于地图功能有限，请填写地址为Hub mall然后在房间号或备注里输入具体收餐位置</p>
+        >注：如果在UA学校区域收餐，由于地图查询功能有限，请填写地址为Hub mall然后在房间号或备注里输入具体收餐位置</p>
         <label htmlFor="address">地址</label>
         <Input
           size = 'large'
