@@ -87,7 +87,7 @@ const AddressConfirmModal = ({ onConfirm }) => {
                     <h5 className="text-2xl font-bold">确认配送地址</h5>
                     <button
                         className="text-gray-500 hover:text-gray-700"
-                        onClick={() => dispatch(setModalAddressConfirm())}
+                        onClick={() => dispatch(setModalAddressConfirm(false))}
                     >
                         ✕
                     </button>

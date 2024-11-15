@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getWeekDates } from '../utils/dateUtils';
 import { v4 as uuidv4 } from 'uuid';
 import AddressConfirmModal from '../components/AddressConfirmModal';
-import {setModalAddressConfirm} from '../store/interfaceSlice'
+import CreditOrderConfirmModal from '../components/CreditOrderConfirmModal';
+import {setModalAddressConfirm, setCreditOrderConfirmModal} from '../store/interfaceSlice'
 import {setRoute, setDistance, setCoordinates} from '../store/interfaceSlice'
 import { setExtraFee } from '../store/interfaceSlice';
 import { set } from 'date-fns';
@@ -26,6 +27,7 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(true);
   const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
   const isAddressConfirmModalOpen = useSelector((state) => state.interfaceSlice.isAddressConfirmModalOpen);
+  const isCreditOrderConfirmModalOpen = useSelector((state) => state.interfaceSlice.CreditOrderConfirmModal);
   const [sessionToken] = useState(uuidv4());
   const coordinates = useSelector((state) => state.interfaceSlice.coordinates);
   const dispatch = useDispatch();
@@ -64,7 +66,13 @@ const CheckoutPage = () => {
       formRef.current.querySelector("input[name='lat']").value = coordinates[0][1];
       formRef.current.querySelector("input[name='addOn']").value = get_add_on_string();
       formRef.current.querySelector("input[name='addOnFee']").value = (coke + sevenUp + sprite + canadaDry + icetea) * 3;
-      formRef.current.submit();
+      if(userData && userData.credit >= (Number(((unitPrice * quantity).toFixed(2)))+ fee + (coke + sevenUp + sprite + canadaDry + icetea) * 3)){
+        formRef.current.action = `${backend_origin}/existing-money-create-order/`;
+        dispatch(setModalAddressConfirm(false))
+        dispatch(setCreditOrderConfirmModal(true));
+      }else{
+          formRef.current.submit();
+      }
     }
   };
   
@@ -117,7 +125,7 @@ const CheckoutPage = () => {
         const data = await response.json();
         const distance_in_km = (data.routes[0].distance/1000).toFixed(2);
         const route = data.routes[0].geometry;
-        dispatch(setModalAddressConfirm());
+        dispatch(setModalAddressConfirm(true));
         dispatch(setRoute(route));
         dispatch(setDistance(distance_in_km));
       }
@@ -277,7 +285,7 @@ const CheckoutPage = () => {
         </h3>
 
         <input type="hidden" name="total_price" value={totalPrice} />
-        <input type="hidden" name="uuid" value={userData.uuid ||""} />
+        <input type="hidden" name="uuid" value={userData.uuid || ""} />
         <input type="hidden" name="content" value={formattedTodayMeals} />
         <input type="hidden" name="extraFee" value={fee} />
         <input type="hidden" name="lon"/>
@@ -289,6 +297,9 @@ const CheckoutPage = () => {
         type="submit">订购餐食</button>
       </form>
       {isAddressConfirmModalOpen && <AddressConfirmModal onConfirm={submitForm}/>}
+      {isCreditOrderConfirmModalOpen && <CreditOrderConfirmModal 
+      fee = {fee} addOnFee = {(coke + sevenUp + sprite + canadaDry + icetea) * 3} totalPrice = {totalPrice} formRef = {formRef}
+      />}
     </section>
   );
 };

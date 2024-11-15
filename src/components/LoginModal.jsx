@@ -64,7 +64,9 @@ const LoginModal = () => {
           password:userData.password,
           uuid:uData.uuid,
           is_staff: uData.is_staff,
-          room_number:userData.room_number}))
+          room_number:userData.room_number,
+          credit: uData.credit
+        }))
         console.log("register  info", {
           username:userData.username, 
           email:userData.email, 
@@ -73,7 +75,8 @@ const LoginModal = () => {
           password:userData.password,
           uuid:uData.uuid,
           is_staff: uData.is_staff,
-          room_number:userData.room_number
+          room_number:userData.room_number,
+          credit: uData.credit
         })
         dispatch(setModalLogin())
         })
@@ -117,6 +120,7 @@ const LoginModal = () => {
           uuid: data.uuid,
           room_number: data.room_number,
           is_staff: data.is_staff,
+          credit: data.credit,
         }));
         console.log("login info", data)
         dispatch(setIsLoggin(true));

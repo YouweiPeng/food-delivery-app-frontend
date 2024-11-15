@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setModalMyOrders, setOrderCancelModal, setUserOrders} from '../store/interfaceSlice';
+import { setModalMyOrders, setOrderCancelModal, setUserOrders, setUser} from '../store/interfaceSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import OrderCancelModal from './OrderCancelModal';
 import { getWeekDates } from '../utils/dateUtils';
@@ -25,9 +25,7 @@ const MyOrdersModal = () => {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
 };
   const handleCancelOrder = (order) => {
-    console.log('Order Cancel');
-    console.log(order);
-    const cancelOrder = async () => {
+    const cancelOrder_pay_by_stripe = async () => {
       const url = `${backend_origin}/order/cancel_order/${order.order_code}/${user.uuid}`
       const response = await fetch(url, {
         method: 'PUT',
@@ -45,7 +43,37 @@ const MyOrdersModal = () => {
         dispatch(setUserOrders(updatedOrders));
       }
     }
-    cancelOrder();
+    const cancel_order_pay_by_credit = async () => {
+      const url = `${backend_origin}/order/cancel_order_by_credit/`
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          order_code: order.order_code,
+          uuid: user.uuid,
+
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      const credit = data.credit;
+      dispatch(setUser({ ...user, credit }));
+      if (response.ok) {
+        const updatedOrders = user_orders.map((o) =>
+          o.id === order.id ? { ...o, status: 'refunded' } : o
+        );
+        dispatch(setUserOrders(updatedOrders));
+      }
+    }
+    if(order.payment_method ==='card'){
+      cancelOrder_pay_by_stripe();
+    }
+    else{
+      cancel_order_pay_by_credit();
+    }
     setCancelOrderId(null);
     dispatch(setOrderCancelModal(false));
   };
@@ -84,7 +112,7 @@ const MyOrdersModal = () => {
                   <div>
                     <p className="font-bold">订单号: {order.order_code}</p>
                     <p className="text-gray-600">日期: {formatDate(order.date)}</p>
-                    <p className="text-gray-600">餐价: <strong>${order.price}</strong></p>
+                    <p className="text-gray-600">价格: <strong>${order.price}</strong></p>
                     <span
                       className={`inline-block px-2 py-1 rounded text-white mt-2 ${
                         order.status === 'delivered' ? 'bg-green-500' :

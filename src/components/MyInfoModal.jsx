@@ -45,6 +45,7 @@ const MyInfoModal = () => {
             address: document.getElementById("address").value,
             phone_number: document.getElementById("phone_number").value,
             room_number: document.getElementById("room_number").value,
+            credit: user.credit,
         }
         const validResult = validateInput(data);
         if (validResult[0]) {
@@ -58,12 +59,12 @@ const MyInfoModal = () => {
                 body: JSON.stringify(data),
                 credentials: 'include',
             }).then((data) => {
-                    if (data.error) {
-                        setEditedUser(user);
-                        alert(data.error);
-                        return;
-                    }
                     data.json().then((userData) => {
+                        if (userData.error) {
+                            setEditedUser(user);
+                            alert(userData.error);
+                            return;
+                        }
                         console.log(userData);
                         dispatch(setUser(userData));
                         setEditedUser(userData);
@@ -298,6 +299,16 @@ const MyInfoModal = () => {
                         )}
 
                     </div>
+                    {!isEditing && (
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">
+                            余额
+                        </label>
+                        <p className="text-gray-900">$ {user.credit}</p>
+
+                    </div>
+                    )}
+
                 </div>
 
                 <div className="flex justify-between">
@@ -322,9 +333,6 @@ const MyInfoModal = () => {
                         >
                             修改信息
                         </button>
-                        {/* <button
-                        className="bg-red-400 text-white"
-                        >忘记密码</button> */}
                         </div>
                     )}
                 </div>

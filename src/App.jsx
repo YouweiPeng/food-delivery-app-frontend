@@ -39,6 +39,7 @@ function App() {
             uuid: data.uuid,
             room_number: data.room_number,
             is_staff: data.is_staff,
+            credit: data.credit,
           }));
           console.log("Auto login info", data);
           dispatch(setIsLoggin(true));

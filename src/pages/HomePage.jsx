@@ -5,14 +5,18 @@ import { useSelector, useDispatch } from "react-redux";
 import LoginModal from "../components/LoginModal";
 import MyInfoModal from "../components/MyInfoModal";
 import MyOrdersModal from "../components/MyOrdersModal";
-import { setIsLoggin, setModalLogin, setUser, setModalMyInfo, setUserOrders, setModalMyOrders } from "../store/interfaceSlice";
+import { setIsLoggin, setModalLogin, setUser, setModalMyInfo, setUserOrders, setModalMyOrders,setVerificationCodeModal, setAddMoneyModal } from "../store/interfaceSlice";
 import Header from "../components/Header";
+import VerificationCodeModal from "../components/VerificationCodeModal";
+import AddMoneyModal from "../components/AddMoneyModal";
 const HomePage = () => {
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const isLoggin = useSelector((state) => state.interfaceSlice.isLoggin);
     const isMyinfoModal = useSelector((state) => state.interfaceSlice.modalMyInfo);
     const isMyOrdersModal = useSelector((state) => state.interfaceSlice.modalMyOrders);
     const isLoginModal = useSelector((state) => state.interfaceSlice.modalLogin);
+    const isVerificationCodeModal = useSelector((state) => state.interfaceSlice.verificationCodeModal);
+    const isAddMoneyModal = useSelector((state) => state.interfaceSlice.AddMoneyModal);
     const userData = useSelector((state) => state.interfaceSlice.user);
     const backend_origin = import.meta.env.VITE_BACKEND_ORIGIN;
     const dispatch = useDispatch();
@@ -86,6 +90,30 @@ const HomePage = () => {
         get_order_for_user();
     };
 
+    const handleGetCode = () => {
+        const get_verification_code = async () => {
+            const url = `${backend_origin}/user/get_code/`;
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    data : JSON.stringify({uuid: userData.uuid}),
+                });
+                const data = await response.json();
+                console.log(data);
+            } catch (err) {
+                console.error(err);
+           
+            }
+        }
+        get_verification_code();
+        dispatch(setVerificationCodeModal(true));
+    }
+    const handle_add_money = () => {
+        dispatch(setAddMoneyModal(true));
+        toggleSidebar();
+    }
     return (
         <div className="relative">
             <Header />
@@ -130,13 +158,25 @@ const HomePage = () => {
                             我的订单
                         </button>
                         <button
-                            className="bg-lime-600 text-white p-4 mb-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl"
+                            className="bg-blue-600 text-white p-4 mb-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl"
                             onClick={() => {
                                 dispatch(setModalMyInfo());
                                 toggleSidebar();
                             }}
                         >
                             我的信息
+                        </button>
+                        <button
+                            className="bg-lime-600 text-white p-4 mb-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl text-center"
+                            onClick={handle_add_money}
+                        >
+                            充值
+                        </button>
+                        <button
+                            className="bg-white text-black p-4 mb-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl"
+                            onClick={handleGetCode}
+                        >
+                            修改密码
                         </button>
                         <button
                             className="bg-red-600 text-white p-4 w-full text-left transition-transform duration-500 hover:scale-105 rounded text-2xl"
@@ -151,6 +191,8 @@ const HomePage = () => {
             {isLoginModal && !isLoggin && <LoginModal />}
             {isMyinfoModal && isLoggin && <MyInfoModal />}
             {isMyOrdersModal && isLoggin && <MyOrdersModal />}
+            {isVerificationCodeModal && <VerificationCodeModal />}
+            {isAddMoneyModal && <AddMoneyModal />}
         </div>
     );
 };

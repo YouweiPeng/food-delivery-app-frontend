@@ -8,7 +8,6 @@ const SuccessPage = () => {
     const backend_origin = import.meta.env.VITE_BACKEND_ORIGIN;
     const urlParams = new URLSearchParams(window.location.search);
     const { session_id } = useParams();
-    
     useEffect(() => {
         if (session_id) {
             fetch(`${backend_origin}/stripe-session/${session_id}`)

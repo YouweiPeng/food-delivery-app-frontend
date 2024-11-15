@@ -8,7 +8,7 @@ const OrderCancelModal = ({ onCancel, onConfirm }) => {
                    您确定要取消订单吗？
                 </h3>
                 <p>
-                    取消订单后，由于Stripe支付平台政策，您将会被扣除6%-10%的手续费。退款会在几天内退回到您的支付账户。
+                    取消订单后, 由于Stripe支付平台政策, 您将会被扣除6%-10%的手续费。退款会在几天内退回到您的支付账户。
                 </p>
                 <div className="flex justify-between mt-6">
                     <button 

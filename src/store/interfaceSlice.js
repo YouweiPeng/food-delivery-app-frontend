@@ -17,6 +17,9 @@ const initialState = {
     coordinates : [],
     extraFee: 0,
     orderCancelModal: false,
+    verificationCodeModal: false,
+    AddMoneyModal: false,
+    CreditOrderConfirmModal: false,
 };
 
 const interfaceSlice = createSlice({
@@ -53,8 +56,8 @@ const interfaceSlice = createSlice({
         setRoute: (state, action) => {
             state.route = action.payload
         },
-        setModalAddressConfirm: (state) => {
-            state.isAddressConfirmModalOpen = !state.isAddressConfirmModalOpen
+        setModalAddressConfirm: (state, action) => {
+            state.isAddressConfirmModalOpen = action.payload
         },
         setCoordinates: (state, action) => {
             state.coordinates = action.payload
@@ -64,12 +67,25 @@ const interfaceSlice = createSlice({
         },
         setOrderCancelModal:(state, action) =>{
             state.orderCancelModal = action.payload
+        },
+        setVerificationCodeModal: (state, action) => {
+            state.verificationCodeModal = action.payload
+        },
+        setAddMoneyModal: (state, action) => {
+            state.AddMoneyModal = action.payload
+        },
+        setCreditOrderConfirmModal: (state, action) => {
+            state.CreditOrderConfirmModal = action.payload
         }
-
-    
     }
     });
 
 
-export const {setMealInfo, setModalInfo, setModalLogin, setUser, setIsLoggin,setModalMyInfo,setModalMyOrders, setUserOrders, setDistance, setRoute, setModalAddressConfirm, setCoordinates, setExtraFee, setOrderCancelModal} = interfaceSlice.actions;
+export const {setMealInfo, setModalInfo, setModalLogin, 
+    setUser, setIsLoggin,setModalMyInfo,setModalMyOrders, 
+    setUserOrders, setDistance, setRoute, setModalAddressConfirm, 
+    setCoordinates, setExtraFee, setOrderCancelModal, setVerificationCodeModal,
+    setAddMoneyModal, setCreditOrderConfirmModal,
+
+} = interfaceSlice.actions;
 export default interfaceSlice.reducer;
