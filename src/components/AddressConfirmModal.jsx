@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { setModalAddressConfirm, setExtraFee } from "../store/interfaceSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const AddressConfirmModal = ({ onConfirm }) => {
+const AddressConfirmModal = ({ onConfirm, quantity }) => {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
     const dispatch = useDispatch();
     const origin = { lat: 53.525665, lon: -113.520787 };
@@ -17,16 +17,27 @@ const AddressConfirmModal = ({ onConfirm }) => {
 
     let extraFeeText = "地址在免运费范围内";
     let extraFee = 0;
-    if (distance > 10 && distance < 15) {
-        extraFeeText = "地址超过10公里，将收取12元运费";
-        extraFee = 12;
-    } else if (distance >= 15 && distance < 20) {
-        extraFeeText = "地址超过15公里，将收取20元运费";
-        extraFee = 20;
-    }
-    else if (distance > 20) {
-        extraFeeText = "地址超过20公里，将收取25元运费";
-        extraFee = 25;
+    if (distance > 10){
+        if (distance > 10 && distance < 15) {
+            extraFee = 12;
+            extraFeeText = `地址超过10公里`;
+        }
+        else if (distance > 15) {
+            extraFee = 20;
+            extraFeeText = `地址超过15公里`;
+        }
+
+        if (5 > quantity && quantity >= 3) {
+            extraFee = (extraFee * 0.8).toFixed(2);
+            extraFeeText += `, 购买数量超过3件, 8折优惠, 配送费为${extraFee}元`;
+        }
+        else if (quantity >= 5) {
+            extraFee = (extraFee * 0.5).toFixed(2);
+            extraFeeText += `, 购买数量超过5件, 5折优惠, 配送费为${extraFee}元`;
+        }
+        else {
+            extraFeeText += `, 配送费为${extraFee}元`;
+        }
     }
     useEffect(() => {
         dispatch(setExtraFee(extraFee));

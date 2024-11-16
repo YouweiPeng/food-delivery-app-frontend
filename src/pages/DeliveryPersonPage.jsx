@@ -222,8 +222,11 @@ const DeliveryPersonPage = () => {
                                         <p><strong>邮箱:</strong> {order.email}</p>
                                         <p><strong>价格:</strong> ${order.price}</p>
                                         <p><strong>份数:</strong> {order.quantity}</p>
+                                        <p><strong>是否需要餐具：</strong> {order.is_utensils?"是":"否"}</p>
+                                        <p><strong>是否需要赠送饮料：</strong> {order.is_early?"是":"否"}</p>
                                         <p><strong>房间号:</strong> {order.room_number || "客户未填"}</p>
                                         <p><strong>附加:</strong> {order.addOns || "无附加"}</p>
+                                        <p><strong>客户备注：</strong> {order.comment}</p>
                                         <button 
                                         className="bg-blue-600 text-white p-2 rounded mt-2"
                                         onClick={() => handleFinishOrder(order)}>完成订单</button>

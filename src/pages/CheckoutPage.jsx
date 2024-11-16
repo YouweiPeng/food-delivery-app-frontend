@@ -66,7 +66,7 @@ const CheckoutPage = () => {
       formRef.current.querySelector("input[name='lat']").value = coordinates[0][1];
       formRef.current.querySelector("input[name='addOn']").value = get_add_on_string();
       formRef.current.querySelector("input[name='addOnFee']").value = (coke + sevenUp + sprite + canadaDry + icetea) * 3;
-      if(userData && userData.credit >= (Number(((unitPrice * quantity).toFixed(2)))+ fee + (coke + sevenUp + sprite + canadaDry + icetea) * 3)){
+      if(userData && userData.credit >= (Number(((Number(totalPrice)  + Number(addOnFee))*1.05).toFixed(2)) + Number(fee) + (coke + sevenUp + sprite + canadaDry + icetea) * 3)){
         formRef.current.action = `${backend_origin}/existing-money-create-order/`;
         dispatch(setModalAddressConfirm(false))
         dispatch(setCreditOrderConfirmModal(true));
@@ -271,6 +271,7 @@ const CheckoutPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
         </div>
 
         <div>
@@ -279,6 +280,16 @@ const CheckoutPage = () => {
         <TextArea name="comment" id="note" 
         placeholder='请在此处输入备注, 如过敏信息，特殊要求'
         autoSize={{ minRows: 3, maxRows: 5 }} className='text-gray-900 p-3'/>
+        </div>
+        <div>
+
+        <label htmlFor="note">需要餐具吗?</label>
+        <input type="checkbox" 
+        name="utensils" 
+        id="utensils"
+        defaultChecked = "true"
+        className='mx-2'
+        />
         </div>
         <h3 className='font-black text-xl'>
           {isNaN(totalPrice) || quantity > 30 ? "数量有误" : `餐价:$${totalPrice}`}
@@ -296,7 +307,7 @@ const CheckoutPage = () => {
         className='bg-green-500 text-white p-2 rounded-md'
         type="submit">订购餐食</button>
       </form>
-      {isAddressConfirmModalOpen && <AddressConfirmModal onConfirm={submitForm}/>}
+      {isAddressConfirmModalOpen && <AddressConfirmModal onConfirm={submitForm} quantity = {quantity}/>}
       {isCreditOrderConfirmModalOpen && <CreditOrderConfirmModal 
       fee = {fee} addOnFee = {(coke + sevenUp + sprite + canadaDry + icetea) * 3} totalPrice = {totalPrice} formRef = {formRef}
       />}
