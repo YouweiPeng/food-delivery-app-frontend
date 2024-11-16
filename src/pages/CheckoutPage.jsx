@@ -287,7 +287,6 @@ const CheckoutPage = () => {
         <input type="checkbox" 
         name="utensils" 
         id="utensils"
-        defaultChecked = "true"
         className='mx-2'
         />
         </div>
