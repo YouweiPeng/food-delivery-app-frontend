@@ -107,7 +107,7 @@ const CheckoutPage = () => {
       const url = `https://api.mapbox.com/search/searchbox/v1/suggest?q=${address}&access_token=${MAPBOX_ACCESS_TOKEN}&session_token=${sessionToken}&proximity=-113.49458748665292,53.527784713984516&country=CA`
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       if (data.suggestions.length === 0) {
         alert("地址无效，请重新输入 (Invalid address, please re-enter)");
         return;
@@ -118,7 +118,7 @@ const CheckoutPage = () => {
       const data2 = await response2.json();
       const customer_coordinate = [data2.features[0].geometry.coordinates, data.suggestions[0].name];
       dispatch(setCoordinates(customer_coordinate));
-      console.log("This is the coordinates",customer_coordinate);
+      // console.log("This is the coordinates",customer_coordinate);
       const get_distance = async () => {
         const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${customer_coordinate[0]}, ${customer_coordinate[1]};-113.520787,53.525665?&geometries=geojson&access_token=${MAPBOX_ACCESS_TOKEN}`
         const response = await fetch(url);

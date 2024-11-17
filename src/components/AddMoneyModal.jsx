@@ -29,7 +29,7 @@ const AddMoneyModal = () => {
                 onClick={() => handleAddMoney(100, 10)}
                 >充值100送10元</button>
                 <button className='mt-5 bg-blue-500 text-white'
-                onClick={() => handleAddMoney(200, 20)}
+                onClick={() => handleAddMoney(200, 25)}
                 >充值200送25元</button>
             </div>
 

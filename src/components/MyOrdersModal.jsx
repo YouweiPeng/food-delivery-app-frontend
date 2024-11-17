@@ -35,7 +35,7 @@ const MyOrdersModal = () => {
         credentials: 'include',
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       if (response.ok) {
         const updatedOrders = user_orders.map((o) =>
           o.id === order.id ? { ...o, status: 'refunded' } : o
@@ -58,7 +58,7 @@ const MyOrdersModal = () => {
         }),
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       const credit = data.credit;
       dispatch(setUser({ ...user, credit }));
       if (response.ok) {

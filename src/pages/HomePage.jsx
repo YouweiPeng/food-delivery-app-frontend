@@ -59,7 +59,7 @@ const HomePage = () => {
                 dispatch(setIsLoggin(false));
                 dispatch(setUserOrders([]));
                 toggleSidebar();
-                console.log("Logged out successfully");
+                // console.log("Logged out successfully");
             } else {
                 console.error("Failed to log out");
             }
@@ -81,7 +81,7 @@ const HomePage = () => {
                     credentials: "include",
                 });
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 dispatch(setUserOrders(data));
             } catch (err) {
                 console.error(err);
@@ -101,7 +101,7 @@ const HomePage = () => {
                     data : JSON.stringify({uuid: userData.uuid}),
                 });
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
             } catch (err) {
                 console.error(err);
            

@@ -19,8 +19,8 @@ function App() {
   const backend_origin = import.meta.env.VITE_BACKEND_ORIGIN;
   const IsLoggin = useSelector((state) => state.interfaceSlice.isLoggin);
   const user = useSelector((state) => state.interfaceSlice.user);
-  console.log(mealsByDay)
-  console.log(mealInfo)
+  // console.log(mealsByDay)
+  // console.log(mealInfo)
   useEffect(() => {
     const checkAutoLogin = async () => {
       try {
@@ -29,7 +29,7 @@ function App() {
           credentials: 'include',
         });
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         if (response.ok && data.loggedIn) {
           dispatch(setUser({
             username: data.username,
@@ -41,9 +41,9 @@ function App() {
             is_staff: data.is_staff,
             credit: data.credit,
           }));
-          console.log("Auto login info", data);
+          // console.log("Auto login info", data);
           dispatch(setIsLoggin(true));
-          console.log("Auto login successful.");
+          // console.log("Auto login successful.");
         }
       } catch (error) {
         console.error("Auto login failed:", error);
@@ -54,7 +54,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("IsLoggin updated:", IsLoggin);
+    // console.log("IsLoggin updated:", IsLoggin);
 }, [IsLoggin]);
   // useEffect(() => {
   //   const fetchAllMeals = async () => {
@@ -67,23 +67,23 @@ function App() {
   // }, [BackEndOrigin]);
   // useEffect(() => {
   //   if (Object.keys(mealsData).length > 0) {
-  //     console.log(mealsData);
+  //     // console.log(mealsData);
       
   //     const formatData = () => {
   //       const time = getWeekDates().today;
-  //       console.log(`Today is: ${time.getFullYear()}-${(time.getMonth() + 1) >= 10? time.getMonth() + 1:'0' + (time.getMonth() + 1)}-${time.getDate()}`);
+  //       // console.log(`Today is: ${time.getFullYear()}-${(time.getMonth() + 1) >= 10? time.getMonth() + 1:'0' + (time.getMonth() + 1)}-${time.getDate()}`);
   //       let numDayOfWeek = time.getDay() - 1;
   //       if (numDayOfWeek < 0) {
   //         numDayOfWeek = 6;
   //       }
-  //       console.log(numDayOfWeek);
+  //       // console.log(numDayOfWeek);
   //       const currentDayOfWeek = daysOfWeek[numDayOfWeek];
 
-  //       console.log("Today is", currentDayOfWeek);
+  //       // console.log("Today is", currentDayOfWeek);
         
   //       time.setTime(time.getTime() - (numDayOfWeek * 24 * 60 * 60 * 1000));
   //       let formatTime = `${time.getFullYear()}-${(time.getMonth() + 1) >= 10? time.getMonth() + 1:'0' + (time.getMonth() + 1)}-${ time.getDate() >=10?time.getDate():'0'+time.getDate()}`
-  //       console.log('Monday of the current week is', formatTime);
+  //       // console.log('Monday of the current week is', formatTime);
   //       if (!mealsData['Week_1'] || !mealsData['Week_2']) {
   //         console.error("Week_1 or Week_2 is missing from mealsData.");
   //         return;
@@ -91,9 +91,9 @@ function App() {
 
   //       // change the start date in here, now it is 2024-10-14
   //       const weekDifference = Math.floor((time.getTime() - new Date(2024, 9, 14).getTime()) / (7 * 24 * 60 * 60 * 1000));
-  //       console.log('we started', weekDifference, "weeks");
+  //       // console.log('we started', weekDifference, "weeks");
   //       const parity = weekDifference % 2 === 0 ? 'even' : 'odd';
-  //       console.log('This week is', parity);
+  //       // console.log('This week is', parity);
   //       const res = {};
   //       if (parity === 'even') {
   //         for (let i = 0; i < 7; i++) {
@@ -119,7 +119,7 @@ function App() {
   //         }
   //       }
   
-  //       console.log(res.data);
+  //       // console.log(res.data);
   //       dispatch(setMealInfo(res));
   //     };
   
@@ -131,37 +131,37 @@ function App() {
     const fetchMenu = async () => {
       const response = await fetch(`${backend_origin}/order/get_menu/`);
       const data = await response.json();
-      console.log("menu")
-      console.log(data);
+      // console.log("menu")
+      // console.log(data);
       setMealsData(data);
     }
     fetchMenu();
   }, [backend_origin]);
 
   useEffect(() => {
-    console.log("mealsData updated:", mealsData)
+    // console.log("mealsData updated:", mealsData)
   }, [mealsData]);
   useEffect(() => {
       const format_data = () => {
         const time = getWeekDates().today;
-        console.log(`Today is: ${time.getFullYear()}-${(time.getMonth() + 1) >= 10? time.getMonth() + 1:'0' + (time.getMonth() + 1)}-${time.getDate()}`);
+        // console.log(`Today is: ${time.getFullYear()}-${(time.getMonth() + 1) >= 10? time.getMonth() + 1:'0' + (time.getMonth() + 1)}-${time.getDate()}`);
         let numDayOfWeek = time.getDay() - 1;
         if (numDayOfWeek < 0) {
           numDayOfWeek = 6;
         }
-        console.log(numDayOfWeek);
+        // console.log(numDayOfWeek);
         const currentDayOfWeek = daysOfWeek[numDayOfWeek];
 
-        console.log("Today is", currentDayOfWeek);
+        // console.log("Today is", currentDayOfWeek);
         
         time.setTime(time.getTime() - (numDayOfWeek * 24 * 60 * 60 * 1000));
         let formatTime = `${time.getFullYear()}-${(time.getMonth() + 1) >= 10? time.getMonth() + 1:'0' + (time.getMonth() + 1)}-${ time.getDate() >=10?time.getDate():'0'+time.getDate()}`
-        console.log('Monday of the current week is', formatTime);
+        // console.log('Monday of the current week is', formatTime);
         // change the start date in here, now it is 2024-10-14
         const weekDifference = Math.floor((time.getTime() - new Date(2024, 10, 4).getTime()) / (7 * 24 * 60 * 60 * 1000));
-        console.log('we started', weekDifference, "weeks");
+        // console.log('we started', weekDifference, "weeks");
         const parity = weekDifference % 2 === 0 ? 'even' : 'odd';
-        console.log('This week is', parity);
+        // console.log('This week is', parity);
         const res = {};
         if (parity === 'even') {
           for (let i = 0; i < 7; i++) {
@@ -187,8 +187,8 @@ function App() {
             formatTime = `${time.getFullYear()}-${(time.getMonth() + 1) >= 10? time.getMonth() + 1:'0' + (time.getMonth() + 1)}-${ time.getDate() >=10?time.getDate():'0'+time.getDate()}`
           }
         }
-        console.log("res")
-        console.log(res);
+        // console.log("res")
+        // console.log(res);
         dispatch(setMealInfo(res));
       }
       if (Object.keys(mealsData).length > 0) {

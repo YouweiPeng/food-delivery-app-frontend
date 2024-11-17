@@ -21,7 +21,7 @@ const VerificationCodeModal = () => {
             }),
         });
         if (response.ok) {
-            console.log("Password changed successfully");
+            // console.log("Password changed successfully");
             dispatch(setVerificationCodeModal(false));
         } else {
             alert("Failed to change password");

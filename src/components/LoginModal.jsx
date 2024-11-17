@@ -67,22 +67,22 @@ const LoginModal = () => {
           room_number:userData.room_number,
           credit: uData.credit
         }))
-        console.log("register  info", {
-          username:userData.username, 
-          email:userData.email, 
-          address: userData.address, 
-          phone_number: userData.phone_number, 
-          password:userData.password,
-          uuid:uData.uuid,
-          is_staff: uData.is_staff,
-          room_number:userData.room_number,
-          credit: uData.credit
-        })
+        // // // console.log("register  info", {
+        //   username:userData.username, 
+        //   email:userData.email, 
+        //   address: userData.address, 
+        //   phone_number: userData.phone_number, 
+        //   password:userData.password,
+        //   uuid:uData.uuid,
+        //   is_staff: uData.is_staff,
+        //   room_number:userData.room_number,
+        //   credit: uData.credit
+        // })
         dispatch(setModalLogin())
         })
 
       }).catch(err => {
-        console.log(err)
+        // // console.log(err)
       }
       )
     }
@@ -122,7 +122,7 @@ const LoginModal = () => {
           is_staff: data.is_staff,
           credit: data.credit,
         }));
-        console.log("login info", data)
+        // // console.log("login info", data)
         dispatch(setIsLoggin(true));
         dispatch(setModalLogin());
       } else {
@@ -140,7 +140,7 @@ const LoginModal = () => {
          `https://api.mapbox.com/search/searchbox/v1/suggest?q=${searchText}&access_token=${MAPBOX_ACCESS_TOKEN}&session_token=${sessionToken}&proximity=-113.49458748665292,53.527784713984516&country=CA`
       );
       const data = await response.json();
-      console.log(data.suggestions);
+      // console.log(data.suggestions);
       setSuggestions(data.suggestions || []);
     } catch (error) {
       console.error("Error fetching suggestions:", error);

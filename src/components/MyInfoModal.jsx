@@ -65,14 +65,14 @@ const MyInfoModal = () => {
                             alert(userData.error);
                             return;
                         }
-                        console.log(userData);
+                        // console.log(userData);
                         dispatch(setUser(userData));
                         setEditedUser(userData);
                         setIsEditing(false);
                     });
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         }
         else{
@@ -92,7 +92,7 @@ const MyInfoModal = () => {
                 `https://api.mapbox.com/search/searchbox/v1/suggest?q=${searchText}&access_token=${MAPBOX_ACCESS_TOKEN}&session_token=${sessionToken}&proximity=-113.49458748665292,53.527784713984516&country=CA`
             );
             const data = await response.json();
-            console.log("Suggestions:", data.suggestions);
+            // console.log("Suggestions:", data.suggestions);
             setSuggestions(data.suggestions || []);
         } catch (error) {
             console.error("Error fetching suggestions:", error);
@@ -102,7 +102,7 @@ const MyInfoModal = () => {
     };
 
     const handleSuggestionClick = (suggestion) => {
-        console.log("Selected suggestion:", suggestion.full_address);
+        // console.log("Selected suggestion:", suggestion.full_address);
         setTempoAddress(suggestion.full_address);
         setSuggestions([]);
         setEditedUser({ ...editedUser, address: suggestion.full_address });

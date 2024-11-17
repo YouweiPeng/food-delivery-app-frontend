@@ -23,7 +23,7 @@ const DeliveryPersonOrderFinishModal = ({ order, closeFinishModal, finishOrderCa
 
         const resData = await response.json();
         if (response.ok) {
-            console.log(resData);
+            // console.log(resData);
             finishOrderCallback();
             closeFinishModal();
         } else {

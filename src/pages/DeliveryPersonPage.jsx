@@ -45,7 +45,7 @@ const DeliveryPersonPage = () => {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 calculateAndSortOrders(data);
             } else {
                 console.error("Failed to fetch orders for today");

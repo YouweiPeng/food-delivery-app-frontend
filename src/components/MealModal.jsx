@@ -2,7 +2,7 @@
 import testPic from "../assets/test.png";
 
 const MealModal = ({ meal, onClose }) => {
-  console.log(meal);
+  // console.log(meal);
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg overflow-hidden shadow-lg max-w-md w-full mx-4 md:mx-0">
