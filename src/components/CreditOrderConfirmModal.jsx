@@ -12,8 +12,9 @@ const CreditOrderConfirmModal = ({addOnFee, totalPrice, formRef}) => {
             <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="creditOrderConfirmModalLabel">确认订单</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h2 className="modal-title" id="creditOrderConfirmModalLabel"
+                        className="text-2xl font-bold mb-2"
+                        >确认订单</h2>
                     </div>
                     <div className="modal-body">
                         <p>餐价: $ {totalPrice}</p>
@@ -25,10 +26,10 @@ const CreditOrderConfirmModal = ({addOnFee, totalPrice, formRef}) => {
                         <p>您现有余额可以支付该订单，将在余额里扣除订单所需费用，确定下单吗？</p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary bg-white text-black"
+                        <button type="button" className="btn btn-primary bg-lime-300 text-black border-black border-2 mx-2"
                         onClick={() => formRef.current.submit()}
                         >确定</button>
-                        <button type="button" className="btn btn-secondary bg-white text-black" data-bs-dismiss="modal"
+                        <button type="button" className="btn btn-secondary bg-rose-300 text-black border-black border-2" data-bs-dismiss="modal"
                         onClick={() => dispatch(setCreditOrderConfirmModal(false))}
                         >取消</button>
                     </div>
